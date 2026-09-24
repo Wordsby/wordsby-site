@@ -38,6 +38,7 @@ typography:
     source: google
     weights: [400, 700]
     fallback: serif
+  heading_weight: 400
 
 contact:
   email: hey@wordsby.ai # TODO: wordsby.ai has no mail service yet, so this inbox doesn't receive mail
