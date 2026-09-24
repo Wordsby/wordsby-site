@@ -17,22 +17,6 @@
 #       to: "area. If you've"
 #       reason: Typo on the old site. Client OK'd the fix by email, 2026-09-16.
 #
-# _Example content. Replace with the client's real quotes during onboarding._
+# No quotes yet. Wordsby has no testimonials as of onboarding (2026-09-24).
 
-- name: Dana R.
-  role: Painting student
-  source: Riverside Community Arts student feedback form, spring 2025 (example)
-  quote: |
-    I hadn't painted since high school. Now Thursday nights are my favorite part of the week.
-
-- name: Marcus T.
-  role: Parent
-  source: Email to the Riverside front desk, 2025-03-12 (example)
-  quote: |
-    My kids come home covered in clay and grinning. That's all I need to know.
-
-- name: Priya S.
-  role: Studio member
-  source: Riverside member survey, 2024 (example)
-  quote: |
-    The open studio made it possible for me to keep working after art school.
+[]

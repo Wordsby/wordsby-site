@@ -1,54 +1,61 @@
-# Site Spec: Riverside Community Arts
-
-_Example content. Replace every section of this file with the client's real specs during onboarding (`skills/onboard-client/SKILL.md`)._
+# Site Spec: Wordsby
 
 ## Organization
 
-Riverside Community Arts is a nonprofit community arts center on the Springfield riverfront. It runs classes, open studio time, and a gallery, serving about 1,200 students a year. Founded 1998.
+Wordsby is a natural language website builder: "AI-assisted with a human touch." A business owner works with their agency to build a website in plain English, and updates it the same way. Instead of learning website software, they use their words.
+
+A typical build starts with a video call, where the business owner is interviewed about their business and the site they need. The agency then works with Wordsby to build a first draft. The owner asks for changes in plain English until the site is ready to launch. After launch, Wordsby hosts the site, and it keeps being updated in plain English.
+
+What makes it different: people working with AI. It keeps the human touch of working with real people and uses what modern AI tools can do. Traditional builds take longer and often miss the mark.
 
 ## Audiences
 
 | Audience | What they need from this site |
 |---|---|
-| Curious beginners | Reassurance that no experience is needed, what classes cost, how to start |
-| Parents | Kids' and teen programs, schedules, safety, cost |
-| Working artists | Open studio access, equipment, membership |
-| Donors and volunteers | What the center does for the community and how to help |
+| Business owners who need a website (main audience for now) | To understand that they can get a site that fits without learning software or being technical, how the process works, and how to join the waitlist |
+| Agencies | To know Wordsby is for them too (Bring Your Own Key), and how to get in touch |
 
 ## Goals, in order
 
-1. Class signups (via the contact form for now)
-2. First-time visits to the gallery
-3. Volunteer and donor interest
+1. Waitlist sign-ups
 
 ## Primary calls to action
 
-- **Try a free class** → `/contact/`
-- **Browse classes** → `/classes/`
+- **Join the waitlist** → the waitlist form at the bottom of `/` (`/#waitlist`)
 
 ## Sitemap
 
 | Page | Purpose | Patterns |
 |---|---|---|
-| `/` | Explain the center and route people to classes | hero, feature-grid, testimonials, cta-banner |
-| `/about/` | Build trust: story, values, gallery | content, cta-banner |
-| `/classes/` | What's taught, cost, how to start | hero, feature-grid, faq, cta-banner |
-| `/contact/` | Visit info, hours, and the contact form | content, form |
-| `/privacy/` | Privacy policy | (body text only) |
+| `/` | Explain Wordsby to a business owner, and get them on the waitlist | hero, steps, statement (why it misses the mark), feature-grid (the usual way vs. with Wordsby), faq, cta-banner (for agencies, dark), form (waitlist) |
 
 ## Content notes
 
-- Class schedules change each season. Expect a refresh of `/classes/` four times a year.
-- Sliding-scale pricing is central to the mission. Mention it wherever cost comes up.
-- Never imply a class is full or guarantee a spot. Staff confirm registrations by email.
+- **No self-serve signup.** Never write copy that implies someone can sign up, start free, or build a site on their own. The action is the waitlist.
+- **Don't name any AI provider or model.**
+- **Don't discuss pricing.**
+- **Emphasize people working with AI**, not automation.
+- For agencies, Wordsby is Bring Your Own Key. Mention it only in the agency section.
+- No testimonials yet. Don't add a testimonials section until real quotes are in `content/quotes.yaml`.
+
+## Outstanding
+
+- The waitlist form was set up by the agency on 2026-09-24. Where submissions are emailed is the agency's to set and confirm.
+- TODO: hey@wordsby.ai (shown in the footer) doesn't receive mail yet.
+- TODO: Regular-weight headings, to match the brand sheet. Requested from the agency on 2026-09-24.
+- TODO: The wordsby.ai domain isn't attached to the site yet.
+- TODO: A privacy page, once Wordsby has a policy. It's needed as soon as the site collects names and emails.
+- TODO: Social profiles, if any.
+- TODO: Confirm the voice in `brand/VOICE.md`.
 
 ## Agency
 
 Where work that belongs to the agency goes (rule 7 in `AGENTS.md`). The agency fills this in, not the client.
 
-- Basecamp project: https://3.basecamp.com/0000000/projects/00000000
-- Notify: Jordan Lee
+- Requests go through Wordsby's `ask_the_agency` tool for this site.
+- Basecamp project: TODO (agency to fill in)
+- Notify: TODO (agency to fill in)
 
 ## Out of scope
 
-The site doesn't handle registration, payments, or donations yet. Those happen by email and in person. (Revisit once the platform supports more than forms.)
+Self-serve signup, pricing, and a public product demo. The site does one thing for now: explains Wordsby and collects waitlist interest.

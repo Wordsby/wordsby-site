@@ -1,27 +1,25 @@
 # Site settings: production URL, menus, and form service connection.
 
 site:
-  url: https://www.example.org # production URL, used for canonical links and the sitemap
+  url: https://wordsby.ai # production URL, used for canonical links and the sitemap. Not attached to the site yet.
   language: en
 
 navigation:
   header:
-    - label: About
-      href: /about/
-    - label: Classes
-      href: /classes/
-    - label: Contact
-      href: /contact/
+    - label: How it works
+      href: /#how-it-works
+    - label: Why Wordsby
+      href: /#why
+    - label: Questions
+      href: /#questions
+    - label: For agencies
+      href: /#agencies
   cta:
-    label: Try a free class
-    href: /contact/
-  footer:
-    - label: Privacy
-      href: /privacy/
+    label: Join the waitlist
+    href: /#waitlist
+  footer: []
 
 forms:
-  # The shared form service. http://localhost:8787 is the local dev server
-  # (see services/forms in the platform repo). Replace with the deployed URL.
-  endpoint: http://localhost:8787
-  site_id: riverside-arts
-  # turnstile_site_key: "" # add to turn on Cloudflare Turnstile spam protection
+  endpoint: https://site-forms.wordsby.workers.dev
+  site_id: wordsby-site
+  turnstile_site_key: "0x4AAAAAAFCdEc9_sPwD8SI-"
