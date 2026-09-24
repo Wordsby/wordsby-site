@@ -14,3 +14,4 @@ navigation:
 forms:
   endpoint: https://site-forms.wordsby.workers.dev
   site_id: wordsby-site
+  turnstile_site_key: "0x4AAAAAAFCdEc9_sPwD8SI-"
