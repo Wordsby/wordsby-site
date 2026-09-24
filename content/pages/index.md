@@ -27,10 +27,25 @@ sections:
       - title: Launch and keep going
         text: Wordsby hosts your site. When something changes, ask for the update in plain English.
 
-  - pattern: content
+  - pattern: statement
     id: why
+    statement: Something often gets lost between what you meant and what got built.
+    heading: Why websites miss the mark
+    text:
+      - The usual choices are learning website software yourself, or explaining your business and waiting to see what comes back. Either way it takes longer than it should, and the result often misses the mark.
+      - Wordsby is AI-assisted, with a human touch.
+
+  - pattern: feature-grid
+    heading: Two ways to get a website
+    columns: 2
+    items:
+      - title: The usual way
+        text: Learn website software yourself, or explain your business, then wait and see what comes back.
+      - title: With Wordsby
+        text: People work with you, and AI does the heavy lifting. You say what you mean, in your own words, and the site is built to match.
 
   - pattern: faq
+    id: questions
     heading: Questions people ask
     items:
       - question: Do I need to be technical?
@@ -44,7 +59,7 @@ sections:
 
   - pattern: cta-banner
     id: agencies
-    tone: light
+    tone: dark
     heading: For agencies, too
     text: "Wordsby is Bring Your Own Key: you use your own AI account, and your clients build and update their sites in plain English, with your team reviewing the work."
     actions:
@@ -74,11 +89,3 @@ sections:
     submit_label: Join the waitlist
     success_message: Thanks. You're on the waitlist, and we'll let you know when Wordsby is ready for your site.
 ---
-
-## Why websites miss the mark
-
-*Something often gets lost between what you meant and what got built.*
-
-The usual choices are learning website software yourself, or explaining your business and waiting to see what comes back. Either way it takes longer than it should, and the result often misses the mark.
-
-Wordsby is AI-assisted, with a human touch. People work with you, and AI does the heavy lifting. You say what you mean, in your own words, and the site is built to match.

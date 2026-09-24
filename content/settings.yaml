@@ -5,7 +5,15 @@ site:
   language: en
 
 navigation:
-  header: []
+  header:
+    - label: How it works
+      href: /#how-it-works
+    - label: Why Wordsby
+      href: /#why
+    - label: Questions
+      href: /#questions
+    - label: For agencies
+      href: /#agencies
   cta:
     label: Join the waitlist
     href: /#waitlist

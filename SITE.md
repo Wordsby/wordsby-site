@@ -27,7 +27,7 @@ What makes it different: people working with AI. It keeps the human touch of wor
 
 | Page | Purpose | Patterns |
 |---|---|---|
-| `/` | Explain Wordsby to a business owner, and get them on the waitlist | hero, steps, content (why it misses the mark), faq, cta-banner (for agencies), form (waitlist) |
+| `/` | Explain Wordsby to a business owner, and get them on the waitlist | hero, steps, statement (why it misses the mark), feature-grid (the usual way vs. with Wordsby), faq, cta-banner (for agencies, dark), form (waitlist) |
 
 ## Content notes
 

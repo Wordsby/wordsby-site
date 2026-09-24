@@ -1,0 +1,59 @@
+---
+import type { z } from 'astro/zod';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, statement, heading, text } = Astro.props;
+---
+
+<Section id={id} tone={tone} class="statement">
+  <p class="statement__line">{statement}</p>
+
+  {
+    (heading || text.length > 0) && (
+      <div class="statement__body">
+        {heading && <h2>{heading}</h2>}
+        {text.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    )
+  }
+</Section>
+
+<style>
+  .statement :global(> .container) {
+    display: grid;
+    row-gap: var(--space-6);
+  }
+  .statement__line {
+    margin: 0;
+    max-width: 18em;
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-style: italic;
+    font-weight: 400;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    text-wrap: balance;
+  }
+  .statement__body p {
+    max-width: var(--measure);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .statement__body p + p {
+    margin-top: var(--space-4);
+  }
+
+  /* Wide screens: the statement on the left, the detail beside it. */
+  @media (min-width: 48rem) {
+    .statement :global(> .container) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: var(--space-7);
+      align-items: start;
+    }
+  }
+</style>
