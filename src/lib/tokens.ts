@@ -1,6 +1,7 @@
 import type { Brand } from './brand';
 import { firstReadable, mix, mostReadable } from './color';
 import type { Direction } from './direction';
+import { headingWeight } from './heading-weight';
 
 const WHITE = '#FFFFFF';
 const ROOT_PX = 16;
@@ -93,7 +94,7 @@ export function tokensCss(brand: Brand, direction: Direction): string {
     '--tracking-caps': typography.tracking.caps,
     '--measure': typography.measure,
     '--heading-case': typography.heading_case,
-    '--heading-weight': String(typography.heading_weight),
+    '--heading-weight': String(headingWeight(brand, direction)),
     '--leading-display': String(typography.leading_display),
 
     '--section-space': fluid(narrowSpace, wideSpace),
@@ -120,9 +121,11 @@ export function tokensCss(brand: Brand, direction: Direction): string {
 
 export function googleFontsUrl(brand: Brand, direction: Direction): string | undefined {
   const heading = headingFont(brand, direction);
-  // The heading weight is always loaded, whatever the font lists.
+  // The weight headings actually use is always loaded, whatever the font
+  // lists — and it is the resolved one, or a font would be fetched without
+  // the weight the page then asks for and the browser would synthesise it.
   const fonts = [
-    { ...heading, weights: [...heading.weights, direction.typography.heading_weight] },
+    { ...heading, weights: [...heading.weights, headingWeight(brand, direction)] },
     bodyFont(brand, direction),
   ].filter((f) => f.source === 'google');
   // Merge weights when heading and body share a family, rather than letting one replace the other.
