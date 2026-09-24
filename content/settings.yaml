@@ -8,7 +8,9 @@ navigation:
   header: []
   cta:
     label: Join the waitlist
-    href: mailto:hey@wordsby.ai?subject=Wordsby%20waitlist # TODO: point at the waitlist form once the agency has set it up
+    href: /#waitlist
   footer: []
 
-# No form service yet. The agency is setting up the waitlist form.
+forms:
+  endpoint: https://site-forms.wordsby.workers.dev
+  site_id: wordsby-site

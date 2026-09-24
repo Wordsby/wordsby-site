@@ -21,13 +21,13 @@ What makes it different: people working with AI. It keeps the human touch of wor
 
 ## Primary calls to action
 
-- **Join the waitlist** → currently an email to hey@wordsby.ai. It moves to a waitlist form once the agency has set one up.
+- **Join the waitlist** → the waitlist form at the bottom of `/` (`/#waitlist`)
 
 ## Sitemap
 
 | Page | Purpose | Patterns |
 |---|---|---|
-| `/` | Explain Wordsby to a business owner, and get them on the waitlist | hero, steps, value-gap, faq, content (for agencies), cta-banner |
+| `/` | Explain Wordsby to a business owner, and get them on the waitlist | hero, steps, value-gap, faq, content (for agencies), form (waitlist) |
 
 ## Content notes
 
@@ -40,8 +40,9 @@ What makes it different: people working with AI. It keeps the human touch of wor
 
 ## Outstanding
 
-- TODO: The waitlist form. Requested from the agency on 2026-09-24.
-- TODO: hey@wordsby.ai doesn't receive mail yet, so waitlist emails won't arrive until it does. Don't go live until either the form or the inbox works.
+- The waitlist form was set up by the agency on 2026-09-24. Where submissions are emailed is the agency's to set and confirm.
+- TODO: hey@wordsby.ai (shown in the footer) doesn't receive mail yet.
+- TODO: Regular-weight headings, to match the brand sheet. Requested from the agency on 2026-09-24.
 - TODO: The wordsby.ai domain isn't attached to the site yet.
 - TODO: A privacy page, once Wordsby has a policy. It's needed as soon as the site collects names and emails.
 - TODO: Social profiles, if any.

@@ -7,7 +7,7 @@ sections:
     text: No website software to learn. Talk it through in plain English, and people working with AI build the site you mean.
     actions:
       - label: Join the waitlist
-        href: mailto:hey@wordsby.ai?subject=Wordsby%20waitlist
+        href: "#waitlist"
       - label: See how it works
         href: "#how-it-works"
         style: secondary
@@ -56,16 +56,31 @@ sections:
   - pattern: content
     id: agencies
 
-  - pattern: cta-banner
+  - pattern: form
+    id: waitlist
+    tone: muted
+    form_id: waitlist
     heading: Build what you mean.
-    text: Join the waitlist, and we'll let you know when Wordsby is ready for your site.
-    actions:
-      - label: Join the waitlist
-        href: mailto:hey@wordsby.ai?subject=Wordsby%20waitlist
+    intro: Join the waitlist, and we'll let you know when Wordsby is ready for your site.
+    fields:
+      - name: name
+        label: Your name
+        required: true
+      - name: email
+        label: Email
+        type: email
+        required: true
+      - name: role
+        label: I'm…
+        type: select
+        required: true
+        options: [A business owner, An agency]
+    submit_label: Join the waitlist
+    success_message: Thanks. You're on the waitlist, and we'll let you know when Wordsby is ready for your site.
 ---
 
 ## For agencies
 
 Wordsby works for agencies too. It's Bring Your Own Key: you use your own AI account, and your clients get to build and update their sites in plain English, with your team reviewing the work.
 
-Agencies can join the same waitlist. [Email hey@wordsby.ai](mailto:hey@wordsby.ai?subject=Wordsby%20waitlist%20%E2%80%94%20agency) and tell us a little about your agency.
+Agencies can [join the same waitlist](#waitlist). Choose "An agency" when you join.
