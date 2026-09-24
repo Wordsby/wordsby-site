@@ -1,0 +1,154 @@
+---
+import type { z } from 'astro/zod';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, heading, statement, text, bars } = Astro.props;
+---
+
+<Section id={id} tone={tone} class="value-gap">
+  <div class="value-gap__lead">
+    {heading && <h2>{heading}</h2>}
+    <p class="value-gap__statement">{statement}</p>
+  </div>
+
+  <figure class="value-gap__figure" style={`--share: ${bars.share}%`}>
+    <figcaption class="visually-hidden">{bars.summary}</figcaption>
+    <div aria-hidden="true">
+      <p class="value-gap__label">{bars.full}</p>
+      <div class="value-gap__bar">
+        <span class="value-gap__fill value-gap__fill--full"></span>
+      </div>
+
+      <p class="value-gap__label">{bars.reduced}</p>
+      <div class="value-gap__bar value-gap__bar--reduced">
+        <span class="value-gap__fill"></span>
+        <span class="value-gap__missing"></span>
+      </div>
+
+      <div class="value-gap__callout">
+        <span class="value-gap__bracket"></span>
+        <p class="value-gap__gap">{bars.gap}</p>
+        {bars.note && <p class="value-gap__note">{bars.note}</p>}
+      </div>
+    </div>
+  </figure>
+
+  {
+    text.length > 0 && (
+      <div class="value-gap__text">
+        {text.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    )
+  }
+</Section>
+
+<style>
+  /* Phones: statement, then the diagram, then the detail. */
+  .value-gap :global(> .container) {
+    display: grid;
+    grid-template-areas: 'lead' 'figure' 'text';
+    row-gap: var(--space-6);
+  }
+  .value-gap__lead {
+    grid-area: lead;
+  }
+  .value-gap__statement {
+    margin: var(--space-4) 0 0;
+    max-width: 22em;
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-heading);
+    text-wrap: balance;
+  }
+  .value-gap__text {
+    grid-area: text;
+  }
+  .value-gap__text p {
+    max-width: var(--measure);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .value-gap__text p + p {
+    margin-top: var(--space-4);
+  }
+
+  .value-gap__figure {
+    grid-area: figure;
+    margin: 0;
+    padding: var(--space-5);
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .value-gap__label {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+  .value-gap__bar {
+    display: flex;
+    height: var(--space-6);
+    margin-bottom: var(--space-5);
+  }
+  .value-gap__fill {
+    width: var(--share);
+    border-radius: var(--radius) 0 0 var(--radius);
+    background: var(--fg);
+  }
+  .value-gap__fill--full {
+    width: 100%;
+    border-radius: var(--radius);
+  }
+  .value-gap__missing {
+    flex: 1;
+    border: calc(var(--border-width) * 2) dashed var(--accent);
+    border-left: 0;
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  /* The bracket spans the missing part; the label sits under it, right-aligned. */
+  .value-gap__bar--reduced {
+    margin-bottom: var(--space-1);
+  }
+  .value-gap__callout {
+    text-align: right;
+  }
+  .value-gap__bracket {
+    display: block;
+    width: calc(100% - var(--share));
+    height: var(--space-3);
+    margin-left: auto;
+    border: calc(var(--border-width) * 2) solid var(--accent);
+    border-top: 0;
+  }
+  .value-gap__gap {
+    margin: var(--space-2) 0 0;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .value-gap__note {
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+
+  /* Wide screens: text on the left, diagram beside it. */
+  @media (min-width: 48rem) {
+    .value-gap :global(> .container) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-areas: 'lead figure' 'text figure';
+      grid-template-rows: auto 1fr;
+      column-gap: var(--space-7);
+      row-gap: var(--space-5);
+    }
+    .value-gap__figure {
+      align-self: start;
+    }
+  }
+</style>

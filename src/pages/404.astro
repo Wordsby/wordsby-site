@@ -1,0 +1,13 @@
+---
+import PageTitle from '../components/PageTitle.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../patterns/_shared/Section.astro';
+---
+
+<BaseLayout title="Page not found" description="The page you're looking for doesn't exist.">
+  <PageTitle title="Page not found" />
+  <Section width="narrow">
+    <p>Sorry, we couldn't find that page. It may have moved.</p>
+    <a class="button" href="/">Go to the home page</a>
+  </Section>
+</BaseLayout>

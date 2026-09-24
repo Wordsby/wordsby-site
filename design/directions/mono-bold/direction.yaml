@@ -1,0 +1,21 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Mono Bold
+inspired_by: nike (OpenDesign catalog) — monochrome page, oversized display, generous radius, energy from type alone
+canvas: light
+
+typography:
+  scale: 1.26
+  display: { min: 2.75rem, max: 5.25rem }
+  heading: { family: Archivo, source: google, weights: [700, 800], fallback: sans-serif }
+  body: { family: Archivo, source: google, weights: [400, 600], fallback: sans-serif }
+  tracking: { display: -0.035em, heading: -0.02em, caps: 0.1em }
+  measure: 60ch
+
+space:
+  rhythm: standard
+  gap: 1
+
+shape:
+  radius: round
+  border_width: 2px
+  elevation: none

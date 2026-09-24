@@ -1,0 +1,207 @@
+---
+import type { z } from 'astro/zod';
+import { settings } from '../../lib/settings';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, form_id, heading, intro, fields, submit_label, success_message, redirect } = Astro.props;
+
+if (!settings.forms) {
+  throw new Error(`The "${form_id}" form needs a forms section in content/settings.yaml (endpoint and site_id).`);
+}
+const { endpoint, site_id, turnstile_site_key } = settings.forms;
+const action = `${endpoint.replace(/\/$/, '')}/v1/submit/${site_id}/${form_id}`;
+const fieldId = (name: string) => `${form_id}-${name}`;
+const autocomplete: Record<string, string> = { name: 'name', email: 'email', phone: 'tel', organization: 'organization' };
+const asOption = (option: string | { label: string; description?: string }) =>
+  typeof option === 'string' ? { label: option, description: undefined } : option;
+---
+
+<Section id={id} tone={tone} width="narrow">
+  {heading && <h2>{heading}</h2>}
+  {intro && <p class="intro">{intro}</p>}
+
+  <form class="form" method="post" action={action} data-form data-success={success_message}>
+    {
+      fields.map((f) => {
+        const describedBy = f.help ? `${fieldId(f.name)}-help` : undefined;
+        const common = {
+          id: fieldId(f.name),
+          name: f.name,
+          required: f.required,
+          'aria-describedby': describedBy,
+        };
+        return (
+          <div class:list={['field', `field--${f.type}`]}>
+            {f.type === 'checkboxes' ? (
+              <fieldset class="group">
+                <legend>
+                  {f.label}
+                  {f.required && <span aria-hidden="true"> *</span>}
+                </legend>
+                {f.help && <p class="help">{f.help}</p>}
+                {f.options?.map(asOption).map((option, index) => (
+                  <label class="choice">
+                    <input type="checkbox" name={f.name} value={option.label} id={`${fieldId(f.name)}-${index}`} />
+                    <span>
+                      <strong>{option.label}</strong>
+                      {option.description && <span class="choice__description">{option.description}</span>}
+                    </span>
+                  </label>
+                ))}
+              </fieldset>
+            ) : f.type === 'checkbox' ? (
+              <label>
+                <input type="checkbox" value="yes" {...common} /> {f.label}
+              </label>
+            ) : (
+              <>
+                <label for={fieldId(f.name)}>
+                  {f.label}
+                  {f.required && <span aria-hidden="true"> *</span>}
+                </label>
+                {f.type === 'textarea' ? (
+                  <textarea rows="5" placeholder={f.placeholder} {...common} />
+                ) : f.type === 'select' ? (
+                  <select {...common}>
+                    <option value="">Choose…</option>
+                    {f.options?.map(asOption).map((option) => (
+                      <option>{option.label}</option>
+                    ))}
+                  </select>
+                ) : (
+                  <input type={f.type} placeholder={f.placeholder} autocomplete={autocomplete[f.name]} {...common} />
+                )}
+              </>
+            )}
+            {f.help && f.type !== 'checkboxes' && (
+              <p class="help" id={describedBy}>
+                {f.help}
+              </p>
+            )}
+          </div>
+        );
+      })
+    }
+
+    <input type="hidden" name="_page" value={Astro.url.pathname} />
+    {redirect && <input type="hidden" name="_redirect" value={redirect} />}
+    <div class="trap" aria-hidden="true">
+      <label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+    </div>
+    {turnstile_site_key && <div class="cf-turnstile" data-sitekey={turnstile_site_key} />}
+
+    <button class="button" type="submit">{submit_label}</button>
+    <p class="status" role="status" aria-live="polite"></p>
+  </form>
+</Section>
+
+{turnstile_site_key && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />}
+
+<script>
+  // Without JavaScript the form posts normally and the form service shows a thank-you page.
+  // With JavaScript we submit in the background and show the success message in place.
+  for (const form of document.querySelectorAll<HTMLFormElement>('form[data-form]')) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const status = form.querySelector<HTMLElement>('.status')!;
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      button.disabled = true;
+      status.textContent = 'Sending…';
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) throw new Error(result.error ?? 'Something went wrong.');
+        const done = document.createElement('p');
+        done.className = 'form-success';
+        done.tabIndex = -1;
+        done.textContent = form.dataset.success ?? 'Thanks!';
+        form.replaceWith(done);
+        done.focus();
+      } catch (error) {
+        status.textContent = `${error instanceof Error ? error.message : 'Something went wrong.'} Please try again.`;
+        button.disabled = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .form {
+    display: grid;
+    gap: var(--space-5);
+    margin-top: var(--space-5);
+  }
+  .field label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+  }
+  .field--checkbox label {
+    font-weight: 400;
+  }
+  input:not([type='checkbox']),
+  textarea,
+  select {
+    width: 100%;
+    padding: var(--space-3);
+    border: 1px solid color-mix(in srgb, var(--fg) 45%, transparent);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--fg);
+    font: inherit;
+  }
+  .help {
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-sm);
+  }
+  .group {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .group legend {
+    padding: 0;
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+  }
+  .group .help {
+    margin: 0 0 var(--space-3);
+  }
+  .field .choice {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-3);
+    align-items: start;
+    padding: var(--space-2) 0;
+    font-weight: 400;
+  }
+  .field .choice input {
+    margin-top: 0.3em;
+    width: auto;
+  }
+  .choice__description {
+    display: block;
+    font-size: var(--text-sm);
+  }
+  .trap {
+    position: absolute;
+    left: -10000px;
+  }
+  .form button {
+    justify-self: start;
+  }
+  .status:empty {
+    display: none;
+  }
+  :global(.form-success) {
+    font-size: var(--text-lg);
+    font-weight: 700;
+  }
+</style>

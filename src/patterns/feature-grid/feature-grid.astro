@@ -1,0 +1,54 @@
+---
+import type { z } from 'astro/zod';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, heading, intro, columns, items } = Astro.props;
+const ItemHeading = heading ? 'h3' : 'h2';
+---
+
+<Section id={id} tone={tone}>
+  {heading && <h2>{heading}</h2>}
+  {intro && <p class="intro">{intro}</p>}
+  <ul class="grid" style={`--columns: ${columns}`}>
+    {
+      items.map((item) => (
+        <li class="item">
+          {item.image && <img src={item.image.src} alt={item.image.alt} loading="lazy" />}
+          <ItemHeading class="item__title">{item.title}</ItemHeading>
+          <p>{item.text}</p>
+          {item.link && <a href={item.link.href}>{item.link.label}</a>}
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(var(--container) / var(--columns) - 4rem)), 1fr));
+    gap: var(--gap);
+    margin: var(--space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .item img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: var(--space-4);
+  }
+  .item__title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+  .item a {
+    font-weight: 700;
+  }
+</style>

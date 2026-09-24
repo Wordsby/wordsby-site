@@ -1,0 +1,15 @@
+---
+import type { z } from 'astro/zod';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, width } = Astro.props;
+---
+
+<Section id={id} tone={tone} width={width === 'wide' ? 'normal' : 'narrow'}>
+  <div class="prose">
+    <slot />
+  </div>
+</Section>

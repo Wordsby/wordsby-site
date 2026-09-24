@@ -1,0 +1,23 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Black Tie
+inspired_by: luxury (OpenDesign catalog) — dark canvas, high-contrast display serif, very generous rhythm, near-monochrome
+canvas: dark
+
+typography:
+  scale: 1.25
+  display: { min: 2.75rem, max: 5rem }
+  heading: { family: Bodoni Moda, source: google, weights: [500], fallback: serif }
+  body: { family: Nunito Sans, source: google, weights: [400, 600], fallback: sans-serif }
+  tracking: { display: -0.015em, heading: -0.01em, caps: 0.12em }
+  heading_weight: 500 # hairline strokes stay elegant at a medium weight
+  leading_display: 1.05
+  measure: 62ch
+
+space:
+  rhythm: generous
+  gap: 1.3
+
+shape:
+  radius: sharp
+  border_width: 1px
+  elevation: none

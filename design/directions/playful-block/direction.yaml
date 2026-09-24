@@ -1,0 +1,23 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Playful Block
+inspired_by: duolingo (OpenDesign catalog) — rounded shapes, thick borders, a short solid shadow that makes elements look pressable
+canvas: light
+
+typography:
+  scale: 1.22
+  display: { min: 2.6rem, max: 4.25rem }
+  heading: { family: Nunito, source: google, weights: [800], fallback: sans-serif }
+  body: { family: Nunito Sans, source: google, weights: [400, 700], fallback: sans-serif }
+  tracking: { display: -0.015em, heading: -0.01em, caps: 0.08em }
+  heading_weight: 800
+  leading_display: 1.05
+  measure: 62ch
+
+space:
+  rhythm: generous
+  gap: 1.1
+
+shape:
+  radius: round
+  border_width: 3px
+  elevation: press

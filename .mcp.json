@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "wordsby": {
+      "type": "http",
+      "url": "https://wordsby-platform.wordsby.workers.dev/mcp/wordsby-site"
+    }
+  }
+}

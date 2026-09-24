@@ -1,0 +1,105 @@
+---
+import type { z } from 'astro/zod';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, heading, intro, items } = Astro.props;
+const ItemHeading = heading ? 'h3' : 'h2';
+---
+
+<Section id={id} tone={tone}>
+  {heading && <h2>{heading}</h2>}
+  {intro && <p class="intro">{intro}</p>}
+  <ol class="steps" role="list" style={`--count: ${items.length}`}>
+    {
+      items.map((item, index) => (
+        <li class="step">
+          <span class="step__number" aria-hidden="true">
+            {index + 1}
+          </span>
+          <div class="step__body">
+            <ItemHeading class="step__title">
+              <span class="visually-hidden">Step {index + 1}: </span>
+              {item.title}
+            </ItemHeading>
+            <p>{item.text}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</Section>
+
+<style>
+  .steps {
+    display: grid;
+    gap: var(--space-5);
+    margin: var(--space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  /* Narrow screens: number on the left, a line running down to the next step. */
+  .step {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--space-6) minmax(0, 1fr);
+    align-content: start;
+    column-gap: var(--space-4);
+  }
+  .step__number {
+    display: grid;
+    place-items: center;
+    width: var(--space-6);
+    height: var(--space-6);
+    border-radius: 50%;
+    background: var(--fg);
+    color: var(--bg);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    line-height: 1;
+  }
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--space-6) + var(--space-2));
+    bottom: calc(var(--space-2) - var(--space-5));
+    left: calc(var(--space-6) / 2 - var(--border-width));
+    width: calc(var(--border-width) * 2);
+    background: var(--border);
+  }
+  .step__body {
+    padding-top: var(--space-2);
+  }
+  .step__title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+  .step__body p {
+    margin: 0;
+  }
+
+  /* Wide screens: steps side by side, joined by a line from one number to the next. */
+  @media (min-width: 48rem) {
+    .steps {
+      grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+      gap: var(--gap);
+    }
+    .step {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: var(--space-4);
+    }
+    .step:not(:last-child)::before {
+      top: calc(var(--space-6) / 2 - var(--border-width));
+      bottom: auto;
+      left: calc(var(--space-6) + var(--space-3));
+      right: calc(var(--space-3) - var(--gap));
+      width: auto;
+      height: calc(var(--border-width) * 2);
+    }
+    .step__body {
+      padding-top: 0;
+    }
+  }
+</style>

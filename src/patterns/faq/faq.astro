@@ -1,0 +1,61 @@
+---
+import type { z } from 'astro/zod';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, heading, items } = Astro.props;
+const paragraphs = (text: string) => text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+
+// FAQPage structured data helps search engines show these answers directly.
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+---
+
+<Section id={id} tone={tone} width="narrow">
+  <h2>{heading}</h2>
+  <div class="faq">
+    {
+      items.map((item) => (
+        <details>
+          <summary>{item.question}</summary>
+          <div class="answer">
+            {paragraphs(item.answer).map((p) => (
+              <p>{p}</p>
+            ))}
+          </div>
+        </details>
+      ))
+    }
+  </div>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
+</Section>
+
+<style>
+  .faq {
+    border-top: 1px solid var(--border);
+  }
+  details {
+    border-bottom: 1px solid var(--border);
+  }
+  summary {
+    padding: var(--space-4) 0;
+    font-weight: 700;
+    font-size: var(--text-lg);
+    cursor: pointer;
+  }
+  summary:hover {
+    color: var(--accent);
+  }
+  .answer {
+    padding-bottom: var(--space-4);
+  }
+</style>

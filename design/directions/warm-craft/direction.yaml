@@ -1,0 +1,20 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Warm Craft
+canvas: light
+
+typography:
+  scale: 1.22
+  display: { min: 2.35rem, max: 3.6rem }
+  heading: { family: Bricolage Grotesque, source: google, weights: [600, 700], fallback: sans-serif }
+  body: { family: Karla, source: google, weights: [400, 600], fallback: sans-serif }
+  tracking: { display: -0.02em, heading: -0.01em, caps: 0.08em }
+  measure: 64ch
+
+space:
+  rhythm: generous
+  gap: 1.1
+
+shape:
+  radius: round
+  border_width: 2px
+  elevation: soft

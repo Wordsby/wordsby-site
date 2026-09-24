@@ -1,0 +1,23 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Soft Serif
+inspired_by: openai (OpenDesign catalog) — restrained, content-first, a contemporary serif for display, soft rounded shapes
+canvas: light
+
+typography:
+  scale: 1.22
+  display: { min: 2.5rem, max: 4.25rem }
+  heading: { family: Literata, source: google, weights: [600], fallback: serif }
+  body: { family: Figtree, source: google, weights: [400, 600], fallback: sans-serif }
+  tracking: { display: -0.02em, heading: -0.01em, caps: 0.08em }
+  heading_weight: 600
+  leading_display: 1.1
+  measure: 66ch
+
+space:
+  rhythm: generous
+  gap: 1.15
+
+shape:
+  radius: round
+  border_width: 1px
+  elevation: soft

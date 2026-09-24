@@ -1,0 +1,22 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Quiet Editorial
+canvas: light
+
+typography:
+  scale: 1.25 # modular ratio between type steps
+  display: { min: 2.5rem, max: 4rem } # h1 clamp
+  # Used only when brand.yaml doesn't name its own fonts.
+  heading: { family: Newsreader, source: google, weights: [500, 600], fallback: serif }
+  body: { family: Inter, source: google, weights: [400, 600], fallback: sans-serif }
+  tracking: { display: -0.02em, heading: -0.01em, caps: 0.08em }
+  heading_weight: 600 # the weight this typeface actually ships
+  measure: 66ch
+
+space:
+  rhythm: generous # generous | standard | compact
+  gap: 1.15 # multiplier on the standard gap between items
+
+shape:
+  radius: sharp # sharp | soft | round
+  border_width: 1px
+  elevation: none # none | soft

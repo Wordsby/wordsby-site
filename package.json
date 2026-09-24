@@ -1,0 +1,29 @@
+{
+  "name": "wordsby-site",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro build && node scripts/check-site.mjs",
+    "check:quotes": "node scripts/check-quotes.mjs",
+    "test": "node --test \"scripts/*.test.mjs\"",
+    "screenshots": "node scripts/screenshots.mjs",
+    "lint:design": "node scripts/design-lint.mjs",
+    "patterns:index": "node scripts/patterns-index.mjs",
+    "astro": "astro",
+    "ingest": "node scripts/ingest.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.3.2",
+    "yaml": "^2.9.1"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}

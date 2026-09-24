@@ -1,0 +1,21 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Photo Led
+inspired_by: tesla (OpenDesign catalog) — imagery dominant, deliberately low display ceiling, single accent
+canvas: light
+
+typography:
+  scale: 1.2
+  display: { min: 2rem, max: 2.9rem } # deliberately restrained: the photograph leads
+  heading: { family: Instrument Sans, source: google, weights: [500, 600], fallback: sans-serif }
+  body: { family: Instrument Sans, source: google, weights: [400, 500], fallback: sans-serif }
+  tracking: { display: -0.015em, heading: -0.01em, caps: 0.09em }
+  measure: 62ch
+
+space:
+  rhythm: generous
+  gap: 1.25
+
+shape:
+  radius: soft
+  border_width: 1px
+  elevation: none

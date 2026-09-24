@@ -1,0 +1,20 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Modern Utility
+canvas: light
+
+typography:
+  scale: 1.2
+  display: { min: 2.25rem, max: 3.25rem }
+  heading: { family: Geist, source: google, weights: [600, 700], fallback: sans-serif }
+  body: { family: Geist, source: google, weights: [400, 600], fallback: sans-serif }
+  tracking: { display: -0.03em, heading: -0.02em, caps: 0.07em }
+  measure: 68ch
+
+space:
+  rhythm: standard
+  gap: 1
+
+shape:
+  radius: soft
+  border_width: 1px
+  elevation: soft

@@ -1,0 +1,32 @@
+# Structured brand facts. The site's colors, fonts, and logo come from this file.
+# Change a value here and the whole site updates at the next build.
+# Prose guidance (voice, visual direction) lives in VOICE.md and STYLEGUIDE.md.
+
+name: Riverside Community Arts
+tagline: Art for every neighbor
+
+# Which design direction this site is built in. See design/README.md.
+design:
+  direction: quiet-editorial
+
+logo:
+  primary: brand/assets/logo.svg # used on light backgrounds (header)
+  on_dark: brand/assets/logo-on-dark.svg # used on dark backgrounds (footer)
+
+colors:
+  primary: "#1F4E79"
+  secondary: "#E8A33D"
+  neutral_dark: "#1A1A1A"
+  neutral_light: "#F7F5F0"
+
+# No typography block: this client has no brand typeface, so the design
+# direction supplies the pairing. Add one here when the client does have fonts.
+
+contact:
+  email: hello@example.org
+  phone: "(555) 555-0100"
+  address: 100 River St, Springfield
+
+social:
+  instagram: https://instagram.com/example
+  facebook: https://facebook.com/example

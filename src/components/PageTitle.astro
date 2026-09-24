@@ -1,0 +1,23 @@
+---
+// Title band for pages that don't open with a hero, so every page has an h1.
+import Section from '../patterns/_shared/Section.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<Section tone="muted" class="page-title">
+  <h1>{title}</h1>
+</Section>
+
+<style>
+  .page-title {
+    padding-block: var(--space-7) var(--space-6);
+  }
+  h1 {
+    margin: 0;
+  }
+</style>

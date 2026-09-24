@@ -1,0 +1,105 @@
+---
+import { brand, brandAsset } from '../lib/brand';
+import { settings } from '../lib/settings';
+
+const { contact, social } = brand;
+const logo = brand.logo.on_dark ? brandAsset(brand.logo.on_dark) : undefined;
+const year = new Date().getFullYear();
+const label = (network: string) => network.charAt(0).toUpperCase() + network.slice(1);
+---
+
+<footer class="site-footer tone-dark">
+  <div class="container site-footer__grid">
+    <div>
+      {logo ? <img class="site-footer__logo" src={logo} alt={brand.name} /> : <p class="site-footer__name">{brand.name}</p>}
+      {brand.tagline && <p>{brand.tagline}</p>}
+    </div>
+
+    {
+      (contact.email || contact.phone || contact.address) && (
+        <address>
+          {contact.address && <p>{contact.address}</p>}
+          {contact.phone && (
+            <p>
+              <a href={`tel:${contact.phone.replace(/[^\d+]/g, '')}`}>{contact.phone}</a>
+            </p>
+          )}
+          {contact.email && (
+            <p>
+              <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            </p>
+          )}
+        </address>
+      )
+    }
+
+    {
+      (Object.keys(social).length > 0 || settings.navigation.footer.length > 0) && (
+        <nav aria-label="Footer">
+          <ul>
+            {Object.entries(social).map(([network, url]) => (
+              <li>
+                <a href={url}>{label(network)}</a>
+              </li>
+            ))}
+            {settings.navigation.footer.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
+  </div>
+  <div class="container site-footer__legal">
+    <p>&copy; {year} {brand.name}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--bg);
+    color: var(--fg);
+    padding-block: var(--space-7) var(--space-5);
+  }
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--space-6);
+  }
+  .site-footer__logo {
+    height: 3rem;
+    width: auto;
+  }
+  .site-footer__name {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 700;
+  }
+  address {
+    font-style: normal;
+  }
+  address p {
+    margin: 0 0 var(--space-2);
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-2);
+  }
+  a {
+    color: var(--fg);
+  }
+  a:hover {
+    color: var(--accent);
+  }
+  .site-footer__legal {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+    font-size: var(--text-sm);
+  }
+</style>

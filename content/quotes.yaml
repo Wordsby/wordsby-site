@@ -1,0 +1,38 @@
+# Every customer quote this site may use, exactly as the customer wrote it.
+#
+# `npm run check` compares every testimonial on the site with this file. A quote on
+# a page may be shortened (one unbroken passage, or passages joined with "…" in
+# their original order), but its words and its credit must match what's here.
+#
+# - quote:    word for word, typos and all. Keep paragraph breaks (use `|`).
+# - name, role: the credit exactly as published. Don't add full stops or split a
+#             name from a place. Leave out `role` if the original had none.
+# - source:   where it came from: the old page's address for an imported quote, or
+#             the client's message and its date for one sent later.
+# - approved: (optional) a change the client agreed to, with the reason. Either
+#             `change` + `to` for the words, or `name` / `role` for the credit.
+#
+#   approved:
+#     - change: "areaif you've"
+#       to: "area. If you've"
+#       reason: Typo on the old site. Client OK'd the fix by email, 2026-09-16.
+#
+# _Example content. Replace with the client's real quotes during onboarding._
+
+- name: Dana R.
+  role: Painting student
+  source: Riverside Community Arts student feedback form, spring 2025 (example)
+  quote: |
+    I hadn't painted since high school. Now Thursday nights are my favorite part of the week.
+
+- name: Marcus T.
+  role: Parent
+  source: Email to the Riverside front desk, 2025-03-12 (example)
+  quote: |
+    My kids come home covered in clay and grinning. That's all I need to know.
+
+- name: Priya S.
+  role: Studio member
+  source: Riverside member survey, 2024 (example)
+  quote: |
+    The open studio made it possible for me to keep working after art school.

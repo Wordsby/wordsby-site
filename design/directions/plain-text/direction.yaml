@@ -1,0 +1,23 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Plain Text
+inspired_by: mono (OpenDesign catalog) — monospace throughout, high contrast, compact density
+canvas: light
+
+typography:
+  scale: 1.2
+  display: { min: 2.25rem, max: 3.5rem }
+  heading: { family: Space Mono, source: google, weights: [700], fallback: monospace }
+  body: { family: DM Mono, source: google, weights: [400, 500], fallback: monospace }
+  tracking: { display: -0.02em, heading: -0.01em, caps: 0.1em }
+  heading_weight: 700
+  leading_display: 1.1
+  measure: 60ch # monospace characters are wide; keep lines shorter
+
+space:
+  rhythm: compact
+  gap: 0.9
+
+shape:
+  radius: sharp
+  border_width: 1px
+  elevation: none

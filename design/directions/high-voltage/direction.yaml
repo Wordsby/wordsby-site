@@ -1,0 +1,23 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: High Voltage
+inspired_by: clickhouse (OpenDesign catalog) — dark cockpit, one electric accent, extremely heavy display type, dense layouts
+canvas: dark
+
+typography:
+  scale: 1.25
+  display: { min: 2.75rem, max: 5.5rem }
+  heading: { family: Unbounded, source: google, weights: [900], fallback: sans-serif }
+  body: { family: Inter, source: google, weights: [400, 600], fallback: sans-serif }
+  tracking: { display: -0.02em, heading: -0.01em, caps: 0.1em }
+  heading_weight: 900 # the extreme weight is the personality
+  leading_display: 1
+  measure: 64ch
+
+space:
+  rhythm: compact
+  gap: 0.9
+
+shape:
+  radius: soft
+  border_width: 1px
+  elevation: none

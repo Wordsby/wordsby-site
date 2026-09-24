@@ -1,0 +1,21 @@
+---
+// Wrapper every pattern renders inside: sets the tone, spacing, and content width.
+import type { Tone } from './schema';
+
+interface Props {
+  id?: string;
+  tone?: Tone;
+  width?: 'normal' | 'narrow';
+  class?: string;
+}
+
+// `rest` carries Astro's scope attribute from the calling pattern, so the pattern's
+// own scoped styles can target this element via the class it passes in.
+const { id, tone = 'page', width = 'normal', class: className, ...rest } = Astro.props;
+---
+
+<section id={id} class:list={['section', `tone-${tone}`, className]} {...rest}>
+  <div class={width === 'narrow' ? 'container-narrow' : 'container'}>
+    <slot />
+  </div>
+</section>

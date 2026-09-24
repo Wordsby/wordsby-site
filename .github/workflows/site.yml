@@ -1,0 +1,58 @@
+name: Site
+
+# Checks every change. Wordsby deploys it.
+#
+# Until 2026-09-23 this workflow also deployed: the site's Cloudflare token
+# sat here as a repository secret. That token is Wordsby's, it reaches every
+# agency's sites, and anyone who can edit this file — including an agent
+# pushing a branch — could use it. So the deploy moved to a workflow Wordsby
+# runs, which takes a token for the Wordsby GitHub App's installation on this
+# repo and deploys with a credential this repo never holds (decided
+# 2026-09-17 and 2026-09-23; see the platform's docs).
+#
+# What that means here: this workflow needs no secrets at all. The preview URL
+# and the `deploy` check on a pull request come from the Wordsby app, and the
+# `site` check below is the one this repo is responsible for. Branch
+# protection requires both.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  site:
+    name: site
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+
+      # Builds the site, then checks links, alt text, headings, redirects, quotes
+      # against content/quotes.yaml, and the design lint. Fails the run before
+      # anything reaches a URL.
+      - name: Check
+        run: npm run check
+
+      # Renders every page in a real browser and reports clipped text, colliding
+      # text, and horizontal overflow. The runner image ships Chrome.
+      - name: Audit layout
+        run: npm run screenshots -- --all --fail-on-issues
+
+      - name: Keep the screenshots when something fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: .screenshots/
+          retention-days: 7

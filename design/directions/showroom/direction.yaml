@@ -1,0 +1,23 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Showroom
+inspired_by: apple (OpenDesign catalog) — very large tight display type, neutral canvas, imagery given the drama, quiet chrome
+canvas: light
+
+typography:
+  scale: 1.22
+  display: { min: 3rem, max: 5.5rem }
+  heading: { family: Plus Jakarta Sans, source: google, weights: [700], fallback: sans-serif }
+  body: { family: Plus Jakarta Sans, source: google, weights: [400, 500], fallback: sans-serif }
+  tracking: { display: -0.03em, heading: -0.02em, caps: 0.08em }
+  heading_weight: 700
+  leading_display: 1.05
+  measure: 64ch
+
+space:
+  rhythm: generous
+  gap: 1.2
+
+shape:
+  radius: round
+  border_width: 1px
+  elevation: soft

@@ -1,0 +1,29 @@
+---
+import type { z } from 'astro/zod';
+import Actions from '../_shared/Actions.astro';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, heading, text, actions } = Astro.props;
+---
+
+<Section id={id} tone={tone} width="narrow" class="cta-banner">
+  <h2>{heading}</h2>
+  {text && <p class="intro">{text}</p>}
+  <Actions actions={actions} />
+</Section>
+
+<style>
+  .cta-banner {
+    text-align: center;
+  }
+  .cta-banner .intro {
+    margin-inline: auto;
+  }
+  .cta-banner :global(.actions) {
+    justify-content: center;
+    margin-top: var(--space-5);
+  }
+</style>

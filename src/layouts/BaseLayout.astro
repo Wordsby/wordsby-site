@@ -1,0 +1,65 @@
+---
+import '../styles/base.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { brand, brandAsset } from '../lib/brand';
+import { loadDirection } from '../lib/direction';
+import { settings } from '../lib/settings';
+import { googleFontsUrl, tokensCss } from '../lib/tokens';
+
+const direction = loadDirection(brand.design.direction);
+
+interface Props {
+  title: string;
+  description: string;
+  isHome?: boolean;
+}
+
+const { title, description, isHome = false } = Astro.props;
+const fullTitle = isHome ? [brand.name, brand.tagline].filter(Boolean).join(' | ') : `${title} | ${brand.name}`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const fontsUrl = googleFontsUrl(brand, direction);
+---
+
+<!doctype html>
+<html lang={settings.site.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {!settings.site.indexable && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={brand.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {
+      brand.logo.icon ? (
+        <link rel="icon" href={brandAsset(brand.logo.icon)} />
+      ) : (
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      )
+    }
+    <link rel="sitemap" href="/sitemap.xml" />
+    {
+      fontsUrl && (
+        <>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link rel="stylesheet" href={fontsUrl} />
+        </>
+      )
+    }
+    <style is:inline set:html={tokensCss(brand, direction)}></style>
+  </head>
+  <body class={`tone-${direction.canvas}`}>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

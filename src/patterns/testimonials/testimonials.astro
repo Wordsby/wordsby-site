@@ -1,0 +1,53 @@
+---
+import type { z } from 'astro/zod';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, heading, items } = Astro.props;
+---
+
+<Section id={id} tone={tone}>
+  {heading && <h2>{heading}</h2>}
+  <div class="quotes">
+    {
+      items.map((item) => (
+        <figure>
+          <blockquote>
+            <p>{item.quote}</p>
+          </blockquote>
+          <figcaption>
+            <strong>{item.name}</strong>
+            {item.role && <span>{item.role}</span>}
+          </figcaption>
+        </figure>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .quotes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: var(--gap);
+    margin-top: var(--space-5);
+  }
+  figure {
+    margin: 0;
+    padding-left: var(--space-5);
+    border-left: 4px solid var(--accent);
+  }
+  blockquote {
+    margin: 0;
+    font-size: var(--text-lg);
+  }
+  figcaption {
+    display: flex;
+    flex-direction: column;
+  }
+  figcaption span {
+    font-size: var(--text-sm);
+  }
+</style>

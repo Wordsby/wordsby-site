@@ -1,0 +1,22 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Hard Edge
+inspired_by: brutalism (OpenDesign catalog) — zero radius, heavy display face, solid offset shadows
+canvas: light
+
+typography:
+  scale: 1.3
+  display: { min: 2.75rem, max: 5rem }
+  heading: { family: Archivo Black, source: google, weights: [400], fallback: sans-serif }
+  body: { family: Space Grotesk, source: google, weights: [400, 600], fallback: sans-serif }
+  tracking: { display: -0.01em, heading: -0.01em, caps: 0.1em }
+  heading_weight: 400 # the weight this typeface actually ships
+  measure: 62ch
+
+space:
+  rhythm: standard
+  gap: 1.1
+
+shape:
+  radius: sharp
+  border_width: 3px
+  elevation: hard

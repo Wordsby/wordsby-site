@@ -1,0 +1,21 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: After Dark
+inspired_by: linear-app (OpenDesign catalog) — dark canvas, hairline borders, compressed display type
+canvas: dark
+
+typography:
+  scale: 1.22
+  display: { min: 2.4rem, max: 4.25rem }
+  heading: { family: Inter Tight, source: google, weights: [600, 700], fallback: sans-serif }
+  body: { family: Inter, source: google, weights: [400, 600], fallback: sans-serif }
+  tracking: { display: -0.03em, heading: -0.02em, caps: 0.08em }
+  measure: 66ch
+
+space:
+  rhythm: standard
+  gap: 1
+
+shape:
+  radius: soft
+  border_width: 1px
+  elevation: none

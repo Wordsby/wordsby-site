@@ -1,0 +1,25 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Expedition
+inspired_by: spacex (OpenDesign catalog) — uppercase headings with positive tracking, a technical semi-condensed sans; run here on a light canvas
+canvas: light
+
+typography:
+  scale: 1.22
+  display: { min: 2.5rem, max: 4.5rem }
+  heading: { family: Barlow Semi Condensed, source: google, weights: [600], fallback: sans-serif }
+  body: { family: Barlow, source: google, weights: [400, 600], fallback: sans-serif }
+  # Uppercase headings take positive tracking, never negative.
+  tracking: { display: 0.04em, heading: 0.05em, caps: 0.1em }
+  heading_case: uppercase
+  heading_weight: 600
+  leading_display: 1.05
+  measure: 66ch
+
+space:
+  rhythm: generous
+  gap: 1.1
+
+shape:
+  radius: soft
+  border_width: 1px
+  elevation: none

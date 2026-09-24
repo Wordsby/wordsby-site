@@ -1,0 +1,23 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Blueprint
+inspired_by: ibm (OpenDesign catalog) — strict rectangular grid, zero radius, light-weight display, background layering instead of shadows
+canvas: light
+
+typography:
+  scale: 1.2
+  display: { min: 2.5rem, max: 4rem }
+  heading: { family: Hanken Grotesk, source: google, weights: [300], fallback: sans-serif }
+  body: { family: Hanken Grotesk, source: google, weights: [400, 600], fallback: sans-serif }
+  tracking: { display: -0.01em, heading: -0.01em, caps: 0.08em }
+  heading_weight: 300 # the light display weight is the point
+  leading_display: 1.1
+  measure: 68ch
+
+space:
+  rhythm: standard
+  gap: 1
+
+shape:
+  radius: sharp
+  border_width: 1px
+  elevation: none

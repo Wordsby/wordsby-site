@@ -1,0 +1,22 @@
+---
+import type { z } from 'astro/zod';
+import type { action } from './schema';
+
+interface Props {
+  actions: z.output<typeof action>[];
+}
+
+const { actions } = Astro.props;
+---
+
+{
+  actions.length > 0 && (
+    <div class="actions">
+      {actions.map((a) => (
+        <a class:list={['button', { 'button-secondary': a.style === 'secondary' }]} href={a.href}>
+          {a.label}
+        </a>
+      ))}
+    </div>
+  )
+}

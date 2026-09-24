@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageTitle from '../components/PageTitle.astro';
+import { pagePath } from '../lib/pages';
+import { components, sectionSchema } from '../patterns/registry';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages', (page) => import.meta.env.DEV || !page.data.draft);
+  return pages.map((page) => ({
+    params: { slug: pagePath(page.id).replace(/^\/|\/$/g, '') || undefined },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+const { title, description, sections } = page.data;
+const file = page.filePath ?? `content/pages/${page.id}.md`;
+
+// Never silently drop text: if the page has body text and sections, one section must place it.
+const hasBody = Boolean(page.body?.trim());
+if (hasBody && sections.length > 0 && !sections.some((s) => s.pattern === 'content')) {
+  throw new Error(`${file} has Markdown body text but no "- pattern: content" section. Add one where the text should appear.`);
+}
+
+// A page with no sections just shows its body text.
+const rendered = sections.length > 0 ? sections : [sectionSchema.parse({ pattern: 'content' })];
+
+// Every page gets exactly one h1: the hero's heading, or the page title.
+const startsWithHero = rendered[0].pattern === 'hero';
+if (rendered.filter((s) => s.pattern === 'hero').length > 1 || (!startsWithHero && rendered.some((s) => s.pattern === 'hero'))) {
+  throw new Error(`${file}: a page can have one hero, and it must be the first section.`);
+}
+---
+
+<BaseLayout title={title} description={description} isHome={page.id === 'index'}>
+  {!startsWithHero && <PageTitle title={title} />}
+  {
+    rendered.map((section) => {
+      const Pattern = components[section.pattern];
+      return (
+        <Pattern {...section}>
+          <Content />
+        </Pattern>
+      );
+    })
+  }
+</BaseLayout>

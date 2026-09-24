@@ -1,0 +1,24 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Billboard
+inspired_by: framer (OpenDesign catalog) — giant display type with extreme negative tracking and pill buttons; run here on a light canvas
+canvas: light
+
+typography:
+  scale: 1.25
+  display: { min: 3.25rem, max: 7rem }
+  heading: { family: Schibsted Grotesk, source: google, weights: [800], fallback: sans-serif }
+  body: { family: Schibsted Grotesk, source: google, weights: [400, 700], fallback: sans-serif }
+  # Tighter than the craft default on purpose: at 7rem, ordinary tracking reads loose.
+  tracking: { display: -0.045em, heading: -0.03em, caps: 0.08em }
+  heading_weight: 800
+  leading_display: 1
+  measure: 64ch
+
+space:
+  rhythm: generous
+  gap: 1.2
+
+shape:
+  radius: round
+  border_width: 1px
+  elevation: none

@@ -1,0 +1,23 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Open Door
+inspired_by: wise (OpenDesign catalog) — massive heavy headlines set tight, extra-round shapes, a fresh bright accent
+canvas: light
+
+typography:
+  scale: 1.25
+  display: { min: 2.75rem, max: 5.5rem }
+  heading: { family: Outfit, source: google, weights: [900], fallback: sans-serif }
+  body: { family: Outfit, source: google, weights: [400, 600], fallback: sans-serif }
+  tracking: { display: -0.025em, heading: -0.015em, caps: 0.08em }
+  heading_weight: 900
+  leading_display: 1 # tight, but not below the craft floor
+  measure: 62ch
+
+space:
+  rhythm: generous
+  gap: 1.15
+
+shape:
+  radius: pill
+  border_width: 2px
+  elevation: none

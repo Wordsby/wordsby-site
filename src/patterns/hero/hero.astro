@@ -1,0 +1,63 @@
+---
+import type { z } from 'astro/zod';
+import Actions from '../_shared/Actions.astro';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, variant, eyebrow, heading, text, actions, image } = Astro.props;
+---
+
+<Section id={id} tone={tone} class:list={['hero', `hero--${variant}`]}>
+  <div class="hero__body">
+    {eyebrow && <p class="hero__eyebrow">{eyebrow}</p>}
+    <h1>{heading}</h1>
+    {text && <p class="intro">{text}</p>}
+    <Actions actions={actions} />
+  </div>
+  {image && <img class="hero__image" src={image.src} alt={image.alt} loading="eager" />}
+</Section>
+
+<style>
+  .hero__eyebrow {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    font-size: var(--text-sm);
+  }
+  .hero__image {
+    display: block;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  /* The buttons render inside Actions.astro, out of this component's scope. */
+  .hero :global(.actions) {
+    margin-top: var(--space-5);
+  }
+
+  .hero--centered {
+    text-align: center;
+  }
+  .hero--centered .hero__body {
+    max-width: 48rem;
+    margin-inline: auto;
+  }
+  .hero--centered .intro {
+    margin-inline: auto;
+  }
+  .hero--centered :global(.actions) {
+    justify-content: center;
+  }
+  .hero--centered .hero__image {
+    margin: var(--space-7) auto 0;
+  }
+
+  .hero--split :global(.container) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    align-items: center;
+    gap: var(--space-7);
+  }
+</style>

@@ -1,0 +1,22 @@
+# Values the build consumes. Prose guidance lives in DESIGN.md.
+name: Broadsheet
+inspired_by: wired (OpenDesign catalog) — condensed display, dense grid, one hot accent, square corners
+canvas: light
+
+typography:
+  scale: 1.28
+  display: { min: 2.6rem, max: 4.75rem }
+  heading: { family: Anton, source: google, weights: [400], fallback: sans-serif }
+  body: { family: IBM Plex Sans, source: google, weights: [400, 600], fallback: sans-serif }
+  tracking: { display: -0.015em, heading: -0.01em, caps: 0.09em }
+  heading_weight: 400 # the weight this typeface actually ships
+  measure: 64ch
+
+space:
+  rhythm: compact
+  gap: 0.9
+
+shape:
+  radius: sharp
+  border_width: 1px
+  elevation: lift

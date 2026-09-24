@@ -1,0 +1,18 @@
+{
+  // Deploys the built site to Cloudflare as a static-assets Worker.
+  // `name` is rewritten per site by scripts/new-site.mjs.
+  //
+  // .github/workflows/site.yml deploys with this:
+  //   push to main    wrangler deploy          → production
+  //   pull request    wrangler versions upload → a preview URL for the client
+  "$schema": "https://json.schemastore.org/wrangler.json",
+  "name": "wordsby-site",
+  "compatibility_date": "2026-09-01",
+  // Version uploads return a preview URL only when this is on.
+  "preview_urls": true,
+  "assets": {
+    "directory": "./dist",
+    // Serves dist/404.html for unknown paths, rather than a bare Cloudflare error.
+    "not_found_handling": "404-page"
+  }
+}
