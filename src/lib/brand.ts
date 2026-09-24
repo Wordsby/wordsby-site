@@ -43,6 +43,18 @@ const brandSchema = z.strictObject({
     .strictObject({
       heading: font,
       body: font,
+      /**
+       * How heavy headings are, when the client's own type says so.
+       *
+       * The direction sets a weight that suits its typeface. A brand with its
+       * own typeface often disagrees — Libre Caslon Text ships 400 and 700,
+       * so a direction asking for 600 gets browser-synthesised bold, which is
+       * not what the brand sheet shows. Set this and the brand wins.
+       *
+       * Left out, the direction's weight is used, snapped to a weight the
+       * brand's heading font actually has.
+       */
+      heading_weight: z.number().int().min(100).max(900).optional(),
     })
     .optional(),
   contact: z
