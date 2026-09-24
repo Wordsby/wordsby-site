@@ -1,32 +1,45 @@
 # Structured brand facts. The site's colors, fonts, and logo come from this file.
 # Change a value here and the whole site updates at the next build.
 # Prose guidance (voice, visual direction) lives in VOICE.md and STYLEGUIDE.md.
+# Source: Wordsby Brand Color Palette ("Printer's Study") and Brand Identity sheet, 2026.
 
-name: Riverside Community Arts
-tagline: Art for every neighbor
+name: Wordsby
+tagline: Build what you mean.
 
 # Which design direction this site is built in. See design/README.md.
 design:
   direction: quiet-editorial
 
 logo:
-  primary: brand/assets/logo.svg # used on light backgrounds (header)
-  on_dark: brand/assets/logo-on-dark.svg # used on dark backgrounds (footer)
+  primary: brand/assets/wordsby-wordmark.svg # Ink on Paper (header)
+  on_dark: brand/assets/wordsby-wordmark-on-dark.svg # reversed, per the identity sheet (footer)
+  icon: brand/assets/wordsby-favicon.svg # Sage bookmark with the W monogram
 
+# The build uses four slots. The full palette, for reference:
+#   Paper #F3E6CB (foundation)   Ink #181612 (foundation)   Ochre #A66D12 (signature)
+#   Clay  #B46F4D (supporting)   Taupe #CFC0A6 (supporting) Sage  #596454 (tertiary)
 colors:
-  primary: "#1F4E79"
-  secondary: "#E8A33D"
-  neutral_dark: "#1A1A1A"
-  neutral_light: "#F7F5F0"
+  # Ochre, darkened for accessible buttons. Ochre itself (#A66D12) carries only
+  # 4.36:1 with white text, and 3.53:1 on Paper, so it fails AA for button and link text.
+  # This value takes white button text at 4.99:1.
+  primary: "#9A6410"
+  secondary: "#B46F4D" # Clay
+  neutral_dark: "#181612" # Ink
+  neutral_light: "#F3E6CB" # Paper
 
-# No typography block: this client has no brand typeface, so the design
-# direction supplies the pairing. Add one here when the client does have fonts.
+typography:
+  heading:
+    family: Libre Caslon Text
+    source: google
+    weights: [400, 700]
+    fallback: serif
+  body:
+    family: Libre Caslon Text
+    source: google
+    weights: [400, 700]
+    fallback: serif
 
 contact:
-  email: hello@example.org
-  phone: "(555) 555-0100"
-  address: 100 River St, Springfield
+  email: hey@wordsby.ai # TODO: wordsby.ai has no mail service yet, so this inbox doesn't receive mail
 
-social:
-  instagram: https://instagram.com/example
-  facebook: https://facebook.com/example
+social: {}

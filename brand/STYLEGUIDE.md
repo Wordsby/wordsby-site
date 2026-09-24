@@ -1,35 +1,48 @@
 # Style Guide
 
-_Example content. Replace with the client's real visual direction during onboarding._
-
 Exact colors, fonts, and logo files live in `brand.yaml`. This file covers judgment calls that data can't capture.
 
 ## Feel
 
-Handmade and warm, not corporate. Generous white space, big friendly headings, and photography that looks like a real Tuesday night in the studio.
+A printer's study: paper, ink, and well-set type. The brand principles, from the palette sheet:
+
+1. Led by typography.
+2. Warm and human, not corporate.
+3. Color supports content.
+4. Intentional and restrained.
+5. Timeless, not trendy.
+6. Build what you mean.
+
+The page should read like a well-set page, not a software landing page. No product screenshots, no fake interfaces, no glowing gradients or "AI" imagery.
 
 ## Color use
 
-- The deep blue (`primary`) anchors headers, buttons, and links.
-- The gold (`secondary`) is an accent for small highlights and for dark backgrounds. Never large flat areas of gold.
-- Warm off-white (`neutral_light`) is the default page background. Avoid pure white.
-- Don't introduce colors that aren't in `brand.yaml`. If a section needs contrast, use a different `tone` (`muted`, `dark`, `primary`).
+- **Let paper and ink dominate.** The palette sheet's guide is roughly 60% Paper, 25% Ink, and the rest shared between the accents. Use color sparingly and on purpose.
+- **Buttons use the darkened Ochre** (`primary`). Brand Ochre itself fails contrast for button and link text, so it isn't used for text at body size.
+- **Links and small accents fall back to Ink** on Paper, because none of the warm accents reach 4.5:1 there. Underline links so they read as links.
+- **Clay** (`secondary`) is the accent on dark sections such as the footer.
+- Taupe and Sage aren't in the build's four slots. Sage appears in the favicon. Don't add them to pages directly.
+- Use the `muted` tone for alternating sections and `dark` (Ink) sparingly. Never pure black or pure white backgrounds.
+
+## Type
+
+- Libre Caslon Text throughout, for headings and body. One family, with hierarchy from size, weight, and italic.
+- Italic is part of the voice. The brand sheet sets "AI-assisted with a human touch" in italic. Use it for a supporting line, not for whole paragraphs.
+- Headings can run long across two lines. Let them breathe.
 
 ## Imagery
 
-- **Candid over posed.** People making things, hands in clay, work in progress.
-- Show real students of a range of ages and backgrounds, never stock models.
-- Finished artwork is welcome, but people come first.
-- No stock photography that looks like stock photography.
+- None for now. The page is carried by type. If imagery comes later: real people in real conversations, never stock "AI" art, robots, or glowing brains.
 
 ## Layout
 
-- One clear call to action per page. Two competing buttons means neither gets clicked.
-- Alternate tones between sections so the page has rhythm, but don't use more than two tones per page besides `light`.
-- Keep paragraphs short. Three or four lines maximum.
+- One call to action: **Join the waitlist**. Never two competing buttons.
+- Generous space, hairline rules, sharp corners, no shadows or cards.
+- Keep paragraphs short. Three or four lines at most.
 
 ## Logo
 
-- Use the full logo in the header, and the on-dark version on dark backgrounds.
-- Leave clear space around it, at least the height of the circular mark.
-- Never recolor, stretch, or rotate it.
+- Use the supplied vector wordmark. Never retype it in live type, stretch it, or alter the letterforms.
+- It's a single-color mark: Ink on Paper, or reversed on Ink. Strong contrast, quiet backgrounds.
+- Keep generous clear space around it.
+- The W monogram is for icons, avatars, favicons, and constrained spaces.

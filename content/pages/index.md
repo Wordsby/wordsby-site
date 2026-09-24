@@ -1,60 +1,71 @@
 ---
-title: Home
-description: Riverside Community Arts offers affordable classes, open studio time, and exhibitions for every neighbor in Springfield.
+title: Wordsby — Build what you mean
+description: Wordsby is a natural language website builder. Describe your business in plain English, and people working with AI build the site you mean.
 sections:
   - pattern: hero
-    variant: split
-    eyebrow: Community arts center · Springfield
-    heading: Art for every neighbor
-    text: Classes, open studios, and exhibitions for all ages and budgets, right on the river.
+    heading: Your website, built from your own words
+    text: No website software to learn. Talk it through in plain English, and people working with AI build the site you mean.
     actions:
-      - label: Browse classes
-        href: /classes/
-      - label: Visit us
-        href: /contact/
+      - label: Join the waitlist
+        href: mailto:hey@wordsby.ai?subject=Wordsby%20waitlist
+      - label: See how it works
+        href: "#how-it-works"
         style: secondary
-    image:
-      src: /images/studio-illustration.svg
-      alt: Illustration of a sunny studio with an easel, a pottery wheel, and jars of paint
 
-  - pattern: feature-grid
-    heading: Make something this week
-    intro: Whether you've never held a brush or you're preparing your next show, there's a place for you here.
-    columns: 3
+  - pattern: steps
+    id: how-it-works
+    tone: muted
+    heading: How a site gets built
+    intro: Rather than learning to use website software, you use your words.
     items:
-      - title: Classes
-        text: Six-week courses in pottery, painting, and printmaking, from first-timer to advanced.
-        link:
-          label: See classes
-          href: /classes/
-      - title: Open studio
-        text: Drop in to use our wheels, kilns, and presses on your own schedule.
-        link:
-          label: Studio hours
-          href: /contact/
-      - title: Exhibitions
-        text: Monthly shows featuring local artists and student work, always free to visit.
-        link:
-          label: About the gallery
-          href: /about/
+      - title: Talk it through
+        text: It starts with a video call. You're interviewed about your business and the site you need.
+      - title: See a first draft
+        text: Your agency works with Wordsby to turn that conversation into a first draft of your site.
+      - title: Shape it in plain English
+        text: Say what to change, the way you'd say it to a person. Keep going until it's ready to launch.
+      - title: Launch and keep going
+        text: Wordsby hosts your site. When something changes, ask for the update in plain English.
 
-  - pattern: testimonials
-    heading: From our neighbors
+  - pattern: value-gap
+    heading: Why websites miss the mark
+    statement: Something often gets lost between what you meant and what got built.
+    text:
+      - The usual choices are learning website software yourself, or explaining your business and waiting to see what comes back. Either way it takes longer than it should, and the result often misses the mark.
+      - Wordsby keeps people working with you and lets AI do the heavy lifting. You say what you mean, in your own words, and the site is built to match.
+    bars:
+      full: What you meant
+      reduced: What got built
+      gap: The missed mark
+      note: What Wordsby is built to close
+      summary: Two bars. What got built is shorter than what you meant; the missing part is the missed mark.
+
+  - pattern: faq
+    tone: muted
+    heading: Questions people ask
     items:
-      - quote: I hadn't painted since high school. Now Thursday nights are my favorite part of the week.
-        name: Dana R.
-        role: Painting student
-      - quote: My kids come home covered in clay and grinning. That's all I need to know.
-        name: Marcus T.
-        role: Parent
-      - quote: The open studio made it possible for me to keep working after art school.
-        name: Priya S.
-        role: Studio member
+      - question: Do I need to be technical?
+        answer: No. We've designed Wordsby to make building a website as natural as possible.
+      - question: Who owns my site?
+        answer: You own your site. Moving it to another hosting service is as easy as building it with Wordsby.
+      - question: What happens after launch?
+        answer: Wordsby hosts your site on a high-speed network capable of handling all your site's traffic. From then on, you can keep updating and editing your site in plain English.
+      - question: Can I bring my own domain?
+        answer: Certainly. Wordsby works best with your own domain.
+
+  - pattern: content
+    id: agencies
 
   - pattern: cta-banner
-    heading: Your first class is on us
-    text: New to Riverside? Try any beginner class free.
+    heading: Build what you mean.
+    text: Join the waitlist, and we'll let you know when Wordsby is ready for your site.
     actions:
-      - label: Claim your free class
-        href: /contact/
+      - label: Join the waitlist
+        href: mailto:hey@wordsby.ai?subject=Wordsby%20waitlist
 ---
+
+## For agencies
+
+Wordsby works for agencies too. It's Bring Your Own Key: you use your own AI account, and your clients get to build and update their sites in plain English, with your team reviewing the work.
+
+Agencies can join the same waitlist. [Email hey@wordsby.ai](mailto:hey@wordsby.ai?subject=Wordsby%20waitlist%20%E2%80%94%20agency) and tell us a little about your agency.
