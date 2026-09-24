@@ -3,6 +3,7 @@ title: Wordsby — Build what you mean
 description: Wordsby is a natural language website builder. Describe your business in plain English, and people working with AI build the site you mean.
 sections:
   - pattern: hero
+    eyebrow: A natural language website builder
     heading: Your website, built from your own words
     text: No website software to learn. Talk it through in plain English, and people working with AI build the site you mean.
     actions:
@@ -14,7 +15,6 @@ sections:
 
   - pattern: steps
     id: how-it-works
-    tone: muted
     heading: How a site gets built
     intro: Rather than learning to use website software, you use your words.
     items:
@@ -27,21 +27,10 @@ sections:
       - title: Launch and keep going
         text: Wordsby hosts your site. When something changes, ask for the update in plain English.
 
-  - pattern: value-gap
-    heading: Why websites miss the mark
-    statement: Something often gets lost between what you meant and what got built.
-    text:
-      - The usual choices are learning website software yourself, or explaining your business and waiting to see what comes back. Either way it takes longer than it should, and the result often misses the mark.
-      - Wordsby keeps people working with you and lets AI do the heavy lifting. You say what you mean, in your own words, and the site is built to match.
-    bars:
-      full: What you meant
-      reduced: What got built
-      gap: The missed mark
-      note: What Wordsby is built to close
-      summary: Two bars. What got built is shorter than what you meant; the missing part is the missed mark.
+  - pattern: content
+    id: why
 
   - pattern: faq
-    tone: muted
     heading: Questions people ask
     items:
       - question: Do I need to be technical?
@@ -53,8 +42,15 @@ sections:
       - question: Can I bring my own domain?
         answer: Certainly. Wordsby works best with your own domain.
 
-  - pattern: content
+  - pattern: cta-banner
     id: agencies
+    tone: light
+    heading: For agencies, too
+    text: "Wordsby is Bring Your Own Key: you use your own AI account, and your clients build and update their sites in plain English, with your team reviewing the work."
+    actions:
+      - label: Join as an agency
+        href: "#waitlist"
+        style: secondary
 
   - pattern: form
     id: waitlist
@@ -79,8 +75,10 @@ sections:
     success_message: Thanks. You're on the waitlist, and we'll let you know when Wordsby is ready for your site.
 ---
 
-## For agencies
+## Why websites miss the mark
 
-Wordsby works for agencies too. It's Bring Your Own Key: you use your own AI account, and your clients get to build and update their sites in plain English, with your team reviewing the work.
+*Something often gets lost between what you meant and what got built.*
 
-Agencies can [join the same waitlist](#waitlist). Choose "An agency" when you join.
+The usual choices are learning website software yourself, or explaining your business and waiting to see what comes back. Either way it takes longer than it should, and the result often misses the mark.
+
+Wordsby is AI-assisted, with a human touch. People work with you, and AI does the heavy lifting. You say what you mean, in your own words, and the site is built to match.
