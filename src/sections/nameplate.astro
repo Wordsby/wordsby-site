@@ -1,0 +1,125 @@
+---
+// A type-only opening: no photograph, the headline carried by size and rule work
+// alone. The counterpart to masthead.astro — the same page, argued the other way.
+const { rule, heading, text, actions = [], footnote } = Astro.props;
+---
+
+<header class="nameplate">
+  <div class="inner">
+    {rule && <p class="rule">{rule}</p>}
+    <h1 set:html={heading}></h1>
+    <div class="under">
+      {text && <p class="lede">{text}</p>}
+      {
+        actions.length > 0 && (
+          <div class="actions">
+            {actions.map((a, i) => (
+              <a href={a.href} class:list={['act', { ghost: i > 0 }]}>
+                {a.label}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+    {footnote && <p class="footnote">{footnote}</p>}
+  </div>
+</header>
+
+<style>
+  .nameplate {
+    background: var(--color-light);
+    color: var(--color-dark);
+    padding-block: clamp(4rem, 12vw, 9rem) clamp(3rem, 8vw, 6rem);
+  }
+  .inner {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--space-5);
+  }
+  .rule {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin: 0 0 clamp(2rem, 5vw, 3.5rem);
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .rule::after {
+    content: '';
+    flex: 1;
+    border-top: 1px solid color-mix(in srgb, var(--color-dark) 25%, transparent);
+  }
+  h1 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: clamp(2.9rem, 9.2vw, 8.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  h1 :global(em) {
+    font-style: italic;
+    color: var(--color-primary);
+  }
+  /* The supporting matter hangs in the right half, so the headline keeps the left
+     edge to itself and the page reads as a set page rather than a stack. */
+  .under {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-top: clamp(2.5rem, 6vw, 4.5rem);
+    padding-top: var(--space-5);
+    border-top: 1px solid color-mix(in srgb, var(--color-dark) 25%, transparent);
+  }
+  .lede {
+    grid-column: 2;
+    margin: 0;
+    max-width: 42ch;
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.55;
+    opacity: 0.85;
+  }
+  .actions {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+  .act {
+    padding: 0.8rem 1.5rem;
+    background: var(--color-dark);
+    color: var(--color-light);
+    border: 1px solid var(--color-dark);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  .act.ghost {
+    background: transparent;
+    color: var(--color-dark);
+  }
+  .act:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-light);
+  }
+  .footnote {
+    margin: clamp(2rem, 5vw, 3rem) 0 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.55;
+  }
+  @media (max-width: 46rem) {
+    .under {
+      grid-template-columns: 1fr;
+    }
+    .lede,
+    .actions {
+      grid-column: 1;
+    }
+  }
+</style>

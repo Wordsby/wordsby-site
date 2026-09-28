@@ -10,6 +10,9 @@ const pages = defineCollection({
     description: z.string().max(160, 'Keep descriptions under 160 characters so search results show all of it'),
     sections: z.array(sectionSchema).default([]),
     draft: z.boolean().default(false),
+    // A page shows its title above the sections unless it opens with a hero or a
+    // bespoke section. Set it explicitly when a bespoke section renders its own h1.
+    show_title: z.boolean().optional(),
   }),
 });
 

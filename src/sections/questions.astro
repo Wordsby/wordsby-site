@@ -1,0 +1,82 @@
+---
+// Questions set as an editorial list: full measure, hanging rules, the answer in the
+// right column. The `faq` pattern renders in a narrow centred column, which on a page
+// built of full-width rule work reads as a different document.
+const { note, heading, items = [] } = Astro.props;
+---
+
+<section class="questions">
+  <div class="inner">
+    <header>
+      {note && <p class="note">{note}</p>}
+      {heading && <h2>{heading}</h2>}
+    </header>
+    <dl>
+      {
+        items.map((item) => (
+          <div class="qa">
+            <dt>{item.question}</dt>
+            <dd>{item.answer}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .questions {
+    background: var(--color-light);
+    color: var(--color-dark);
+    padding-block: clamp(3rem, 6vw, 4.5rem) clamp(3.5rem, 8vw, 6.5rem);
+  }
+  .inner {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--space-5);
+  }
+  header {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .note {
+    margin: 0 0 var(--space-4);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  h2 {
+    margin: 0;
+    font-size: clamp(1.9rem, 3.6vw, 3rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+  }
+  dl {
+    margin: 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-dark) 22%, transparent);
+  }
+  .qa {
+    display: grid;
+    grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+    gap: clamp(1rem, 4vw, 3rem);
+    padding-block: clamp(1.4rem, 2.6vw, 2.1rem);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-dark) 22%, transparent);
+  }
+  dt {
+    font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+    line-height: 1.25;
+  }
+  dd {
+    margin: 0;
+    max-width: 62ch;
+    line-height: 1.62;
+    opacity: 0.82;
+  }
+  @media (max-width: 46rem) {
+    .qa {
+      grid-template-columns: 1fr;
+      row-gap: var(--space-3);
+    }
+  }
+</style>

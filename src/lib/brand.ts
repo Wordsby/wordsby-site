@@ -69,7 +69,22 @@ const brandSchema = z.strictObject({
 
 export type Brand = z.output<typeof brandSchema>;
 
-export const brand: Brand = loadYaml(raw, brandSchema, 'brand/brand.yaml');
+/**
+ * A design variant's overrides, as JSON, deep-merged over brand.yaml before it's
+ * validated. `npm run explore` sets this to build the same site several ways
+ * without editing the client's brand file. Nothing else should set it.
+ */
+function variantOverride(): unknown {
+  const raw = process.env.WORDSBY_VARIANT;
+  if (!raw) return undefined;
+  try {
+    return JSON.parse(raw);
+  } catch (error) {
+    throw new Error(`WORDSBY_VARIANT isn't valid JSON: ${(error as Error).message}`);
+  }
+}
+
+export const brand: Brand = loadYaml(raw, brandSchema, 'brand/brand.yaml', variantOverride());
 
 const assetUrls = import.meta.glob<string>('/brand/assets/*', { eager: true, query: '?url', import: 'default' });
 

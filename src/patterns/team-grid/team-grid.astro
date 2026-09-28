@@ -1,0 +1,70 @@
+---
+import type { z } from 'astro/zod';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, heading, intro, columns, shape, people } = Astro.props;
+const NameHeading = heading ? 'h3' : 'h2';
+const ratio = shape === 'portrait' ? '4 / 5' : '1 / 1';
+---
+
+<Section id={id} tone={tone}>
+  {heading && <h2>{heading}</h2>}
+  {intro && <p class="intro">{intro}</p>}
+  <ul class="grid" style={`--columns: ${columns}; --ratio: ${ratio}`}>
+    {
+      people.map((person) => (
+        <li class:list={['person', `shape-${shape}`]}>
+          {person.photo && <img src={person.photo.src} alt={person.photo.alt} loading="lazy" />}
+          <NameHeading class="person__name">{person.name}</NameHeading>
+          {person.role && <p class="person__role">{person.role}</p>}
+          {person.bio && <p class="person__bio">{person.bio}</p>}
+          {person.link && <a href={person.link.href}>{person.link.label}</a>}
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(var(--container) / var(--columns) - 4rem)), 1fr));
+    gap: var(--gap);
+    margin: var(--space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .person img {
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--ratio);
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: var(--space-4);
+  }
+  .shape-circle img {
+    border-radius: 50%;
+    max-width: 14rem;
+  }
+  .person__name {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-1);
+  }
+  .person__role {
+    margin-bottom: var(--space-3);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .person__bio {
+    margin-bottom: var(--space-3);
+  }
+  .person a {
+    font-weight: 700;
+  }
+</style>

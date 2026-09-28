@@ -1,0 +1,99 @@
+---
+// Two columns divided by a rule, for a comparison where the point is the division
+// itself. One side is set back, the other forward — a `feature-grid` with two items
+// gives them equal weight, which is exactly wrong when you are arguing for one.
+const { note, heading, left, right } = Astro.props;
+---
+
+<section class="ledger">
+  <div class="inner">
+    {note && <p class="note">{note}</p>}
+    {heading && <h2>{heading}</h2>}
+    <div class="columns">
+      <div class="col col--past">
+        <h3>{left.title}</h3>
+        <p>{left.text}</p>
+        {left.points && <ul>{left.points.map((p) => <li>{p}</li>)}</ul>}
+      </div>
+      <div class="col col--now">
+        <h3>{right.title}</h3>
+        <p>{right.text}</p>
+        {right.points && <ul>{right.points.map((p) => <li>{p}</li>)}</ul>}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ledger {
+    background: var(--color-dark);
+    color: var(--color-light);
+    padding-block: clamp(4rem, 10vw, 8rem);
+  }
+  .inner {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--space-5);
+  }
+  .note {
+    margin: 0 0 var(--space-4);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-secondary) 45%, var(--color-light));
+  }
+  h2 {
+    margin: 0 0 clamp(2.5rem, 5vw, 4rem);
+    max-width: 20ch;
+    font-size: clamp(1.9rem, 3.6vw, 3rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+  }
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 6vw, 5rem);
+  }
+  .col {
+    padding-top: var(--space-5);
+    border-top: 1px solid color-mix(in srgb, var(--color-light) 28%, transparent);
+  }
+  /* The one being argued against is set quieter, and a shade smaller. */
+  .col--past {
+    opacity: 0.58;
+  }
+  .col--now {
+    border-top-color: color-mix(in srgb, var(--color-secondary) 45%, var(--color-light));
+    border-top-width: 2px;
+  }
+  .col h3 {
+    margin: 0 0 var(--space-4);
+    font-size: clamp(1.2rem, 2.1vw, 1.65rem);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  .col--now h3 {
+    color: color-mix(in srgb, var(--color-secondary) 45%, var(--color-light));
+  }
+  .col p {
+    margin: 0;
+    max-width: 44ch;
+    line-height: 1.65;
+  }
+  .col ul {
+    margin: var(--space-5) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .col li {
+    padding: var(--space-3) 0;
+    font-size: 0.95rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-light) 16%, transparent);
+  }
+  @media (max-width: 46rem) {
+    .columns {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

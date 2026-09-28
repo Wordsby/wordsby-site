@@ -1,0 +1,77 @@
+---
+import type { z } from 'astro/zod';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, heading, intro, layout, columns, crop, images } = Astro.props;
+const ratios = { square: '1 / 1', landscape: '3 / 2', portrait: '4 / 5', none: 'auto' };
+---
+
+<Section id={id} tone={tone}>
+  {heading && <h2>{heading}</h2>}
+  {intro && <p class="intro">{intro}</p>}
+  <ul class:list={['gallery', `layout-${layout}`]} style={`--columns: ${columns}; --ratio: ${ratios[crop]}`}>
+    {
+      images.map(({ image, caption }) => (
+        <li>
+          <figure>
+            <img src={image.src} alt={image.alt} loading="lazy" />
+            {caption && <figcaption>{caption}</figcaption>}
+          </figure>
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  .gallery {
+    display: grid;
+    gap: var(--gap);
+    margin: var(--space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .layout-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(var(--container) / var(--columns) - 4rem)), 1fr));
+  }
+  /* The first image runs full width, the rest follow beneath it. */
+  .layout-feature {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(var(--container) / var(--columns) - 4rem)), 1fr));
+  }
+  .layout-feature > li:first-child {
+    grid-column: 1 / -1;
+  }
+  .layout-feature > li:first-child img {
+    aspect-ratio: 16 / 9;
+  }
+  /* One scrolling row, so a long set doesn't take over the page. */
+  .layout-strip {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(16rem, 22rem);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: var(--space-4);
+  }
+  .layout-strip > li {
+    scroll-snap-align: start;
+  }
+  figure {
+    margin: 0;
+  }
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--ratio);
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  figcaption {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    opacity: 0.75;
+  }
+</style>

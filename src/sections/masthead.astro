@@ -1,0 +1,148 @@
+---
+// Full-bleed photographic masthead with the headline set over it.
+// No pattern can do this: patterns render inside Section, which constrains them to the
+// container and a single tone. This breaks the container on purpose.
+const { eyebrow, heading, text, image, alt, actions = [], align = 'left' } = Astro.props;
+---
+
+<header class:list={['masthead', `align-${align}`]}>
+  <img class="plate" src={image} alt={alt} />
+  <div class="veil"></div>
+  <div class="type">
+    {eyebrow && <p class="slug">{eyebrow}</p>}
+    <h1 set:html={heading}></h1>
+    {text && <p class="lede">{text}</p>}
+    {
+      actions.length > 0 && (
+        <div class="actions">
+          {actions.map((a, i) => (
+            <a href={a.href} class:list={['act', { ghost: i > 0 }]}>
+              {a.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</header>
+
+<style>
+  .masthead {
+    position: relative;
+    min-height: min(92vh, 54rem);
+    display: grid;
+    align-items: end;
+    isolation: isolate;
+    background: var(--color-dark);
+  }
+  .plate,
+  .veil {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .plate {
+    object-fit: cover;
+    /* Warm the photograph toward the brand's ink-and-ochre rather than letting it
+       sit on the page as whatever temperature it was shot at. */
+    filter: saturate(0.72) contrast(1.06) brightness(0.82) sepia(0.18);
+    z-index: -2;
+  }
+  .veil {
+    z-index: -1;
+    background:
+      linear-gradient(to top, rgb(24 22 18 / 0.93) 0%, rgb(24 22 18 / 0.72) 34%, rgb(24 22 18 / 0.18) 72%),
+      linear-gradient(to right, rgb(24 22 18 / 0.7), transparent 62%);
+  }
+  .type {
+    max-width: var(--container);
+    width: 100%;
+    margin-inline: auto;
+    padding: var(--space-8) var(--space-5) clamp(3rem, 7vw, 6rem);
+    color: var(--color-light);
+  }
+  .align-center .type {
+    text-align: center;
+  }
+  .slug {
+    margin: 0 0 var(--space-5);
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-secondary) 45%, var(--color-light));
+  }
+  .slug::after {
+    content: '';
+    display: block;
+    width: 3.5rem;
+    margin-top: var(--space-3);
+    border-top: 1px solid currentColor;
+  }
+  .align-center .slug::after {
+    margin-inline: auto;
+  }
+  h1 {
+    margin: 0;
+    max-width: 18ch;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: clamp(2.75rem, 7.4vw, 6.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+  .align-center h1 {
+    margin-inline: auto;
+  }
+  /* The word the page turns on, set in the signature colour and italic. */
+  h1 :global(em) {
+    font-style: italic;
+    color: color-mix(in srgb, var(--color-secondary) 45%, var(--color-light));
+  }
+  .lede {
+    margin: var(--space-5) 0 0;
+    max-width: 44ch;
+    font-size: clamp(1.0625rem, 1.5vw, 1.3rem);
+    line-height: 1.55;
+    color: color-mix(in srgb, var(--color-light) 82%, transparent);
+  }
+  .align-center .lede {
+    margin-inline: auto;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+  .align-center .actions {
+    justify-content: center;
+  }
+  .act {
+    padding: 0.85rem 1.6rem;
+    background: var(--color-light);
+    color: var(--color-dark);
+    text-decoration: none;
+    font-size: 0.95rem;
+    border: 1px solid var(--color-light);
+  }
+  .act.ghost {
+    background: transparent;
+    color: var(--color-light);
+    border-color: color-mix(in srgb, var(--color-light) 45%, transparent);
+  }
+  .act:hover {
+    background: var(--color-secondary);
+    border-color: color-mix(in srgb, var(--color-secondary) 45%, var(--color-light));
+    color: var(--color-dark);
+  }
+  @media (max-width: 48rem) {
+    .masthead {
+      min-height: 0;
+    }
+    .type {
+      padding-top: clamp(6rem, 30vw, 11rem);
+    }
+  }
+</style>

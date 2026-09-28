@@ -8,6 +8,18 @@ const link = z.strictObject({
 });
 
 const settingsSchema = z.strictObject({
+  /**
+   * Which half of a site's life this repo is in.
+   *
+   * "build" is the design phase: sections can be bespoke files in src/sections/,
+   * styling is unconstrained, and the checks report instead of failing. Nothing
+   * is live, so there is nothing for the gates to protect.
+   *
+   * "care" is the maintained phase: pages are assembled from versioned patterns,
+   * every value comes from a design token, and the checks block. The rules that
+   * keep a live client site safe only make sense once there is one.
+   */
+  mode: z.enum(['build', 'care']).default('care'),
   site: z.strictObject({
     url: z.url(),
     language: z.string().default('en'),

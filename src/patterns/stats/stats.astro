@@ -1,0 +1,58 @@
+---
+import type { z } from 'astro/zod';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, heading, intro, items } = Astro.props;
+---
+
+<Section id={id} tone={tone}>
+  {heading && <h2>{heading}</h2>}
+  {intro && <p class="intro">{intro}</p>}
+  <dl class="stats" style={`--columns: ${items.length}`}>
+    {
+      items.map((item) => (
+        <div class="stat">
+          <dt class="stat__value">{item.value}</dt>
+          <dd class="stat__label">
+            {item.label}
+            {item.note && <span class="stat__note">{item.note}</span>}
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</Section>
+
+<style>
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: var(--gap);
+    margin: var(--space-6) 0 0;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat__value {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: var(--heading-weight);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--accent);
+  }
+  .stat__label {
+    margin: var(--space-2) 0 0;
+    max-width: 22ch;
+    margin-inline: auto;
+  }
+  .stat__note {
+    display: block;
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+    opacity: 0.7;
+  }
+</style>

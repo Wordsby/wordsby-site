@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageTitle from '../components/PageTitle.astro';
 import { pagePath } from '../lib/pages';
-import { components, sectionSchema } from '../patterns/registry';
+import { components, sections, sectionSchema } from '../patterns/registry';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages', (page) => import.meta.env.DEV || !page.data.draft);
@@ -15,34 +15,42 @@ export async function getStaticPaths() {
 
 const { page } = Astro.props;
 const { Content } = await render(page);
-const { title, description, sections } = page.data;
+const { title, description, sections: entries, show_title } = page.data;
 const file = page.filePath ?? `content/pages/${page.id}.md`;
 
+const isBespoke = (entry: any) => typeof entry?.section === 'string';
+const hasBespoke = entries.some(isBespoke);
+
 // Never silently drop text: if the page has body text and sections, one section must place it.
+// A bespoke section can place it too — it gets the body as its default slot — so the check
+// only applies when every section is a pattern.
 const hasBody = Boolean(page.body?.trim());
-if (hasBody && sections.length > 0 && !sections.some((s) => s.pattern === 'content')) {
+if (hasBody && entries.length > 0 && !hasBespoke && !entries.some((s: any) => s.pattern === 'content')) {
   throw new Error(`${file} has Markdown body text but no "- pattern: content" section. Add one where the text should appear.`);
 }
 
 // A page with no sections just shows its body text.
-const rendered = sections.length > 0 ? sections : [sectionSchema.parse({ pattern: 'content' })];
+const rendered = entries.length > 0 ? entries : [sectionSchema.parse({ pattern: 'content' })];
 
-// Every page gets exactly one h1: the hero's heading, or the page title.
+// Every page gets exactly one h1: the hero's heading, the page title, or — when a bespoke
+// section provides its own — whatever that section renders, declared with `show_title: false`.
+const heroes = rendered.filter((s: any) => s.pattern === 'hero');
 const startsWithHero = rendered[0].pattern === 'hero';
-if (rendered.filter((s) => s.pattern === 'hero').length > 1 || (!startsWithHero && rendered.some((s) => s.pattern === 'hero'))) {
+if (heroes.length > 1 || (heroes.length === 1 && !startsWithHero)) {
   throw new Error(`${file}: a page can have one hero, and it must be the first section.`);
 }
+const showTitle = show_title ?? !(startsWithHero || isBespoke(rendered[0]));
 ---
 
 <BaseLayout title={title} description={description} isHome={page.id === 'index'}>
-  {!startsWithHero && <PageTitle title={title} />}
+  {showTitle && <PageTitle title={title} />}
   {
-    rendered.map((section) => {
-      const Pattern = components[section.pattern];
+    rendered.map((entry: any) => {
+      const Component = isBespoke(entry) ? sections[entry.section] : components[entry.pattern];
       return (
-        <Pattern {...section}>
+        <Component {...entry}>
           <Content />
-        </Pattern>
+        </Component>
       );
     })
   }

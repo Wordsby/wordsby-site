@@ -1,0 +1,105 @@
+---
+// A process set as an editorial table: hanging figures in the margin, hairline rules
+// between rows, the step's name and its explanation in two columns. The library's
+// `steps` pattern is circles joined by a line — a diagram. This is a printed list.
+const { note, heading, intro, items = [] } = Astro.props;
+---
+
+<section class="sequence">
+  <div class="inner">
+    <header class="head">
+      {note && <p class="note">{note}</p>}
+      {heading && <h2>{heading}</h2>}
+      {intro && <p class="intro">{intro}</p>}
+    </header>
+    <ol class="rows">
+      {
+        items.map((item, i) => (
+          <li class="row">
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .sequence {
+    background: var(--color-light);
+    color: var(--color-dark);
+    padding-block: clamp(4rem, 10vw, 8rem);
+  }
+  .inner {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--space-5);
+  }
+  .head {
+    max-width: 46ch;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .note {
+    margin: 0 0 var(--space-4);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  h2 {
+    margin: 0;
+    font-size: clamp(1.9rem, 3.6vw, 3rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+  }
+  .intro {
+    margin: var(--space-4) 0 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    opacity: 0.8;
+  }
+  .rows {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid color-mix(in srgb, var(--color-dark) 22%, transparent);
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 15rem) minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 3rem);
+    align-items: baseline;
+    padding-block: clamp(1.5rem, 3vw, 2.4rem);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-dark) 22%, transparent);
+  }
+  .num {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    color: var(--color-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .row h3 {
+    margin: 0;
+    font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  .row p {
+    margin: 0;
+    max-width: 58ch;
+    line-height: 1.62;
+    opacity: 0.82;
+  }
+  @media (max-width: 46rem) {
+    .row {
+      grid-template-columns: 2.5rem 1fr;
+      row-gap: var(--space-3);
+    }
+    .row p {
+      grid-column: 2;
+    }
+  }
+</style>

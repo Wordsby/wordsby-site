@@ -1,3 +1,7 @@
+# build: being designed — bespoke sections, free styling, checks advise.
+# care:  live and looked after — patterns only, tokens only, checks block.
+mode: build
+
 # Site settings: production URL, menus, and form service connection.
 
 site:

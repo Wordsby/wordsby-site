@@ -1,0 +1,90 @@
+---
+import type { z } from 'astro/zod';
+import Actions from '../_shared/Actions.astro';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, heading, eyebrow, text, points, image, media, ratio, crop, actions } = Astro.props;
+const ratios = { landscape: '3 / 2', square: '1 / 1', portrait: '4 / 5', tall: '2 / 3', none: 'auto' };
+const columns = { even: '1fr 1fr', text: '1.35fr 0.65fr', image: '0.65fr 1.35fr' };
+---
+
+<Section id={id} tone={tone}>
+  <div class:list={['split', `media-${media}`]} style={`--ratio: ${ratios[crop]}; --columns: ${columns[ratio]}`}>
+    <div class="prose">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h2>{heading}</h2>
+      {text && <p class="text">{text}</p>}
+      {
+        points && points.length > 0 && (
+          <ul class="points">
+            {points.map((point) => (
+              <li>{point}</li>
+            ))}
+          </ul>
+        )
+      }
+      <Actions actions={actions} />
+    </div>
+    <img src={image.src} alt={image.alt} loading="lazy" />
+  </div>
+</Section>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: var(--columns);
+    gap: var(--space-7);
+    align-items: center;
+  }
+  /* Source order is text then image, so reversing puts the image on the left at
+     desktop width while mobile still stacks image-first — which is what reads best. */
+  .media-left > .prose {
+    order: 2;
+  }
+  .eyebrow {
+    margin-bottom: var(--space-3);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .text {
+    max-width: var(--measure);
+  }
+  .points {
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .points li {
+    padding: var(--space-3) 0;
+    border-top: var(--border-width) solid color-mix(in srgb, var(--fg) 18%, transparent);
+  }
+  .points li:last-child {
+    border-bottom: var(--border-width) solid color-mix(in srgb, var(--fg) 18%, transparent);
+  }
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--ratio);
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  @media (max-width: 52rem) {
+    .split,
+    .media-left > .prose {
+      grid-template-columns: 1fr;
+      order: initial;
+    }
+    .split {
+      gap: var(--space-5);
+    }
+    .split > img {
+      order: -1;
+    }
+  }
+</style>

@@ -1,0 +1,63 @@
+---
+import type { z } from 'astro/zod';
+import Section from '../_shared/Section.astro';
+import type { schema } from './schema';
+
+type Props = z.output<typeof schema>;
+
+const { id, tone, heading, note, size, logos } = Astro.props;
+const heights = { small: '1.75rem', medium: '2.5rem', large: '3.5rem' };
+---
+
+<Section id={id} tone={tone}>
+  {heading && <h2 class="heading">{heading}</h2>}
+  <ul class="wall" style={`--logo-height: ${heights[size]}`}>
+    {
+      logos.map(({ image, href }) => (
+        <li>
+          {href ? (
+            <a href={href}>
+              <img src={image.src} alt={image.alt} loading="lazy" />
+            </a>
+          ) : (
+            <img src={image.src} alt={image.alt} loading="lazy" />
+          )}
+        </li>
+      ))
+    }
+  </ul>
+  {note && <p class="note">{note}</p>}
+</Section>
+
+<style>
+  .heading {
+    text-align: center;
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+  .wall {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6) var(--space-7);
+    margin: var(--space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .wall img {
+    display: block;
+    height: var(--logo-height);
+    width: auto;
+    max-width: 12rem;
+    object-fit: contain;
+  }
+  .note {
+    margin: var(--space-5) 0 0;
+    text-align: center;
+    font-size: var(--text-sm);
+    opacity: 0.7;
+  }
+</style>

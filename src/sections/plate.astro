@@ -1,0 +1,76 @@
+---
+// A full-bleed photographic plate with a printed caption. Used to give the page a
+// breath and to let a photograph be the argument for a moment, rather than an
+// illustration sitting inside a text block.
+const { image, alt, caption, quote, attribution, height = 'tall' } = Astro.props;
+---
+
+<figure class:list={['plate', `h-${height}`]}>
+  <img src={image} alt={alt} />
+  {
+    (quote || caption) && (
+      <figcaption>
+        <div class="inner">
+          {quote && <p class="quote">{quote}</p>}
+          {attribution && <p class="attrib">{attribution}</p>}
+          {caption && !quote && <p class="caption">{caption}</p>}
+        </div>
+      </figcaption>
+    )
+  }
+</figure>
+
+<style>
+  .plate {
+    position: relative;
+    margin: 0;
+    display: grid;
+    isolation: isolate;
+    background: var(--color-dark);
+  }
+  .h-tall {
+    min-height: min(70vh, 40rem);
+  }
+  .h-short {
+    min-height: min(46vh, 26rem);
+  }
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.7) contrast(1.05) brightness(0.8) sepia(0.2);
+    z-index: -1;
+  }
+  figcaption {
+    align-self: end;
+    width: 100%;
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+    background: linear-gradient(to top, rgb(24 22 18 / 0.9), transparent);
+    color: var(--color-light);
+  }
+  .inner {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--space-5);
+  }
+  .quote {
+    margin: 0;
+    max-width: 24ch;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: clamp(1.6rem, 3.6vw, 2.9rem);
+    line-height: 1.16;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
+  }
+  .attrib,
+  .caption {
+    margin: var(--space-4) 0 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-secondary) 45%, var(--color-light));
+  }
+</style>

@@ -1,0 +1,118 @@
+---
+// A statement with a note hung in the margin beside it, the way a printed page
+// carries a gloss. Asymmetric by design: 2fr of statement, 1fr of margin, a hairline
+// between them. The library's `statement` pattern is a symmetric two-column and
+// cannot hang anything.
+const { statement, note, heading, paragraphs = [], figure, figureLabel } = Astro.props;
+---
+
+<section class="marginalia">
+  <div class="inner">
+    <div class="main">
+      <p class="statement" set:html={statement}></p>
+      {
+        figure && (
+          <p class="figure">
+            <span class="figure__value">{figure}</span>
+            {figureLabel && <span class="figure__label">{figureLabel}</span>}
+          </p>
+        )
+      }
+    </div>
+    <aside class="margin">
+      {note && <p class="note">{note}</p>}
+      {heading && <h2>{heading}</h2>}
+      {paragraphs.map((p) => <p class="body">{p}</p>)}
+    </aside>
+  </div>
+</section>
+
+<style>
+  .marginalia {
+    background: var(--color-light);
+    color: var(--color-dark);
+    padding-block: clamp(4rem, 9vw, 7rem) clamp(3rem, 6vw, 4.5rem);
+  }
+  .inner {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--space-5);
+    display: grid;
+    grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+  .statement {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2rem, 4.6vw, 3.9rem);
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    text-wrap: balance;
+  }
+  .statement :global(strong) {
+    font-weight: 400;
+    font-style: normal;
+    color: var(--color-primary);
+  }
+  .figure {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    margin: clamp(2rem, 4vw, 3rem) 0 0;
+    padding-top: var(--space-5);
+    border-top: 1px solid color-mix(in srgb, var(--color-dark) 22%, transparent);
+  }
+  .figure__value {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    color: var(--color-primary);
+  }
+  .figure__label {
+    max-width: 24ch;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    opacity: 0.75;
+  }
+  /* The margin is a column of notes, separated by a rule, set smaller than the page. */
+  .margin {
+    padding-left: clamp(1.25rem, 3vw, 2.5rem);
+    border-left: 1px solid color-mix(in srgb, var(--color-dark) 20%, transparent);
+  }
+  .note {
+    margin: 0 0 var(--space-5);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .margin h2 {
+    margin: 0 0 var(--space-4);
+    font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+    font-weight: 400;
+    line-height: 1.25;
+  }
+  .body {
+    margin: 0 0 var(--space-4);
+    font-size: 0.95rem;
+    line-height: 1.62;
+    opacity: 0.85;
+  }
+  .body:last-child {
+    margin-bottom: 0;
+  }
+  @media (max-width: 52rem) {
+    .inner {
+      grid-template-columns: 1fr;
+    }
+    .margin {
+      padding-left: 0;
+      padding-top: var(--space-5);
+      border-left: 0;
+      border-top: 1px solid color-mix(in srgb, var(--color-dark) 20%, transparent);
+    }
+  }
+</style>

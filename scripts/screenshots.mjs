@@ -21,7 +21,7 @@ import { spawn } from 'node:child_process';
 import { createReadStream, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
-import { extname, join } from 'node:path';
+import { extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const VIEWPORTS = [
@@ -67,7 +67,11 @@ if (!chrome) {
 }
 
 const root = new URL('../', import.meta.url);
-const dist = fileURLToPath(new URL('dist/', root));
+// `npm run explore` points these at one variant's build and its own image folder,
+// so several versions of the same page can be shot without overwriting each other.
+const dist = process.env.WORDSBY_DIST
+  ? resolve(process.env.WORDSBY_DIST) + '/'
+  : fileURLToPath(new URL('dist/', root));
 if (!existsSync(dist)) {
   console.error('No dist/ folder. Run `npm run build` first.');
   process.exit(1);
@@ -97,7 +101,9 @@ if (allPages) {
 }
 if (!paths.length) paths.push('/');
 
-const outDir = fileURLToPath(new URL('.screenshots/', root));
+const outDir = process.env.WORDSBY_SHOTS
+  ? resolve(process.env.WORDSBY_SHOTS) + '/'
+  : fileURLToPath(new URL('.screenshots/', root));
 mkdirSync(outDir, { recursive: true });
 
 // --- static server for dist/ ------------------------------------------------

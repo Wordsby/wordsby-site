@@ -1,0 +1,70 @@
+---
+// Three photographs run edge to edge as one band, captioned beneath in small caps.
+// The `gallery` pattern puts images inside the container with a gap, which on a page
+// this wide leaves them looking like thumbnails floating in paper.
+const { images = [], note } = Astro.props;
+---
+
+<section class="triptych">
+  {note && <p class="note">{note}</p>}
+  <div class="band" style={`--count: ${images.length}`}>
+    {
+      images.map((item) => (
+        <figure>
+          <img src={item.src} alt={item.alt} loading="lazy" />
+          {item.caption && <figcaption>{item.caption}</figcaption>}
+        </figure>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .triptych {
+    background: var(--color-dark);
+    padding-block: 0 clamp(2rem, 4vw, 3rem);
+  }
+  .note {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: clamp(2.5rem, 5vw, 4rem) var(--space-5) clamp(1.25rem, 2.5vw, 2rem);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-secondary) 45%, var(--color-light));
+  }
+  .band {
+    display: grid;
+    grid-template-columns: repeat(var(--count), 1fr);
+    gap: 1px;
+  }
+  figure {
+    margin: 0;
+    position: relative;
+  }
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: saturate(0.72) contrast(1.05) brightness(0.86) sepia(0.18);
+  }
+  figcaption {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: clamp(2.5rem, 6vw, 4rem) var(--space-5) var(--space-5);
+    background: linear-gradient(to top, rgb(24 22 18 / 0.88), transparent);
+    color: var(--color-light);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 46rem) {
+    .band {
+      grid-template-columns: 1fr;
+    }
+    img {
+      aspect-ratio: 3 / 2;
+    }
+  }
+</style>
